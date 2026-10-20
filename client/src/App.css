@@ -61,6 +61,20 @@
   gap: 16px;
 }
 
+.nav-link {
+  font-size: 14px;
+  font-weight: 500;
+  color: #9ca3af;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
 /* Status Pill */
 .status-pill {
   display: flex;

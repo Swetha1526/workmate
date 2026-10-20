@@ -1,6 +1,12 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import authRoutes from './routes/authRoutes.js';
+import workerRoutes from './routes/workerRoutes.js';
+import bookingRoutes from './routes/bookingRoutes.js';
+import chatRoutes from './routes/chatRoutes.js';
+import reviewRoutes from './routes/reviewRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
 
 export const createApp = () => {
   const app = express();
@@ -39,6 +45,14 @@ export const createApp = () => {
       uptime: `${Math.floor(process.uptime())}s`,
     });
   });
+
+  // API Routes
+  app.use('/api/auth', authRoutes);
+  app.use('/api/workers', workerRoutes);
+  app.use('/api/bookings', bookingRoutes);
+  app.use('/api/chat', chatRoutes);
+  app.use('/api/reviews', reviewRoutes);
+  app.use('/api/admin', adminRoutes);
 
   // Global 404 handler for undefined API routes
   app.use('/api/*', (req, res) => {
