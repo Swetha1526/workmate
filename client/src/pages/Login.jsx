@@ -63,18 +63,39 @@ export const Login = () => {
 
   return (
     <div style={{ maxWidth: '460px', margin: '48px auto', padding: '0 16px' }}>
-      <div className="glass-panel" style={{ padding: '32px' }}>
-        <div style={{ textAlign: 'center', marginBottom: '24px' }}>
-          <div style={{ fontSize: '36px', marginBottom: '8px' }}>
+      <div
+        style={{
+          background: '#FFFFFF',
+          border: '1px solid #E7E8E2',
+          borderRadius: '16px',
+          boxShadow: '0 4px 20px rgba(32, 41, 35, 0.06)',
+          padding: '36px',
+        }}
+      >
+        <div style={{ textAlign: 'center', marginBottom: '28px' }}>
+          <div
+            style={{
+              width: '48px',
+              height: '48px',
+              borderRadius: '12px',
+              background: isAdminTab ? '#EDE9FE' : '#E8F2EA',
+              color: isAdminTab ? '#6D28D9' : '#247A52',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '22px',
+              margin: '0 auto 12px',
+            }}
+          >
             {isAdminTab ? '🛡️' : '🔐'}
           </div>
-          <h2 style={{ fontSize: '24px', fontWeight: '700' }}>
-            {isAdminTab ? 'Administrator Access' : 'Sign in to WorkMate'}
+          <h2 style={{ fontSize: '24px', fontWeight: '800', color: '#202923', letterSpacing: '-0.4px', marginBottom: '4px' }}>
+            {isAdminTab ? 'Administrator Portal' : 'Sign In to WorkMate'}
           </h2>
-          <p style={{ fontSize: '14px', color: '#9ca3af' }}>
+          <p style={{ fontSize: '14px', color: '#69736D' }}>
             {isAdminTab
-              ? 'Authorized administrative portal'
-              : 'Access bookings, worker profiles, and chat'}
+              ? 'Authorized administrative control panel'
+              : 'Access your bookings, profile, and direct chat'}
           </p>
         </div>
 
@@ -83,7 +104,8 @@ export const Login = () => {
           style={{
             display: 'flex',
             borderRadius: '10px',
-            background: 'rgba(0,0,0,0.3)',
+            background: '#FAF9F6',
+            border: '1px solid #E7E8E2',
             padding: '4px',
             marginBottom: '24px',
           }}
@@ -96,13 +118,16 @@ export const Login = () => {
             }}
             style={{
               flex: 1,
-              padding: '8px',
+              padding: '9px',
               borderRadius: '8px',
               fontSize: '13px',
               fontWeight: '600',
-              color: !isAdminTab ? '#fff' : '#9ca3af',
-              background: !isAdminTab ? 'rgba(59, 130, 246, 0.25)' : 'none',
-              border: !isAdminTab ? '1px solid rgba(59, 130, 246, 0.4)' : 'none',
+              cursor: 'pointer',
+              color: !isAdminTab ? '#202923' : '#69736D',
+              background: !isAdminTab ? '#FFFFFF' : 'none',
+              boxShadow: !isAdminTab ? '0 1px 3px rgba(0,0,0,0.06)' : 'none',
+              border: !isAdminTab ? '1px solid #E7E8E2' : 'none',
+              transition: 'all 0.15s ease',
             }}
           >
             User Login
@@ -115,13 +140,16 @@ export const Login = () => {
             }}
             style={{
               flex: 1,
-              padding: '8px',
+              padding: '9px',
               borderRadius: '8px',
               fontSize: '13px',
               fontWeight: '600',
-              color: isAdminTab ? '#c084fc' : '#9ca3af',
-              background: isAdminTab ? 'rgba(168, 85, 247, 0.25)' : 'none',
-              border: isAdminTab ? '1px solid rgba(168, 85, 247, 0.4)' : 'none',
+              cursor: 'pointer',
+              color: isAdminTab ? '#6D28D9' : '#69736D',
+              background: isAdminTab ? '#FFFFFF' : 'none',
+              boxShadow: isAdminTab ? '0 1px 3px rgba(0,0,0,0.06)' : 'none',
+              border: isAdminTab ? '1px solid #E7E8E2' : 'none',
+              transition: 'all 0.15s ease',
             }}
           >
             🛡️ Admin Login
@@ -131,22 +159,22 @@ export const Login = () => {
         {error && (
           <div
             style={{
-              padding: '12px',
+              padding: '12px 14px',
               borderRadius: '8px',
-              background: 'rgba(239, 68, 68, 0.15)',
-              border: '1px solid rgba(239, 68, 68, 0.3)',
-              color: '#ef4444',
+              background: '#FEE2E2',
+              border: '1px solid #FECDD3',
+              color: '#B91C1C',
               fontSize: '13px',
-              marginBottom: '18px',
+              marginBottom: '20px',
             }}
           >
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
           <div>
-            <label style={{ display: 'block', fontSize: '13px', color: '#9ca3af', marginBottom: '6px' }}>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#202923', marginBottom: '6px' }}>
               Email Address
             </label>
             <input
@@ -159,18 +187,19 @@ export const Login = () => {
                 width: '100%',
                 padding: '10px 14px',
                 borderRadius: '8px',
-                background: 'rgba(0, 0, 0, 0.25)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                color: '#fff',
+                background: '#FFFFFF',
+                border: '1px solid #E7E8E2',
+                color: '#202923',
                 fontSize: '14px',
                 outline: 'none',
+                boxShadow: '0 1px 2px rgba(0,0,0,0.03)',
               }}
             />
           </div>
 
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-              <label style={{ fontSize: '13px', color: '#9ca3af' }}>
+              <label style={{ fontSize: '13px', fontWeight: '600', color: '#202923' }}>
                 Password
               </label>
               <button
@@ -178,13 +207,11 @@ export const Login = () => {
                 onClick={() => setShowPassword(!showPassword)}
                 style={{
                   fontSize: '12px',
-                  color: '#60a5fa',
+                  fontWeight: '600',
+                  color: '#247A52',
                   background: 'none',
                   border: 'none',
                   cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '4px',
                 }}
               >
                 {showPassword ? 'Hide Password' : 'Show Password'}
@@ -199,13 +226,14 @@ export const Login = () => {
                 placeholder="••••••••"
                 style={{
                   width: '100%',
-                  padding: '10px 40px 10px 14px',
+                  padding: '10px 42px 10px 14px',
                   borderRadius: '8px',
-                  background: 'rgba(0, 0, 0, 0.25)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  color: '#fff',
+                  background: '#FFFFFF',
+                  border: '1px solid #E7E8E2',
+                  color: '#202923',
                   fontSize: '14px',
                   outline: 'none',
+                  boxShadow: '0 1px 2px rgba(0,0,0,0.03)',
                 }}
               />
               <button
@@ -218,8 +246,8 @@ export const Login = () => {
                   transform: 'translateY(-50%)',
                   background: 'none',
                   border: 'none',
-                  color: '#9ca3af',
-                  fontSize: '14px',
+                  color: '#69736D',
+                  fontSize: '15px',
                   cursor: 'pointer',
                   padding: '2px',
                 }}
@@ -234,17 +262,17 @@ export const Login = () => {
             type="submit"
             disabled={submitting}
             style={{
-              marginTop: '8px',
+              marginTop: '6px',
               padding: '12px',
               borderRadius: '8px',
-              background: isAdminTab
-                ? 'linear-gradient(135deg, #7c3aed, #9333ea)'
-                : 'linear-gradient(135deg, var(--primary), var(--accent))',
-              color: '#fff',
-              fontWeight: '600',
+              background: isAdminTab ? '#6D28D9' : '#247A52',
+              color: '#FFFFFF',
+              fontWeight: '700',
               fontSize: '14px',
+              cursor: submitting ? 'not-allowed' : 'pointer',
               opacity: submitting ? 0.7 : 1,
-              boxShadow: '0 4px 14px var(--primary-glow)',
+              boxShadow: '0 2px 8px rgba(36, 122, 82, 0.25)',
+              transition: 'background 0.15s ease',
             }}
           >
             {submitting ? 'Authenticating...' : isAdminTab ? 'Enter Admin Console' : 'Sign In'}
@@ -252,8 +280,8 @@ export const Login = () => {
         </form>
 
         {/* Quick Fill Test Credentials */}
-        <div style={{ marginTop: '24px', paddingTop: '18px', borderTop: '1px solid var(--border-color)' }}>
-          <div style={{ fontSize: '11px', color: '#6b7280', textTransform: 'uppercase', marginBottom: '10px' }}>
+        <div style={{ marginTop: '28px', paddingTop: '20px', borderTop: '1px solid #E7E8E2' }}>
+          <div style={{ fontSize: '11px', fontWeight: '700', color: '#69736D', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '10px' }}>
             ⚡ Quick-Fill Demo Accounts (One-Click Testing)
           </div>
           <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
@@ -261,12 +289,14 @@ export const Login = () => {
               type="button"
               onClick={() => handleQuickFill('customer')}
               style={{
-                padding: '4px 10px',
+                padding: '5px 12px',
                 borderRadius: '6px',
-                background: 'rgba(16, 185, 129, 0.15)',
-                color: '#10b981',
+                background: '#E8F2EA',
+                color: '#247A52',
                 fontSize: '12px',
-                border: '1px solid rgba(16, 185, 129, 0.3)',
+                fontWeight: '600',
+                border: '1px solid #BCD9BF',
+                cursor: 'pointer',
               }}
             >
               Fill Customer
@@ -275,12 +305,14 @@ export const Login = () => {
               type="button"
               onClick={() => handleQuickFill('worker')}
               style={{
-                padding: '4px 10px',
+                padding: '5px 12px',
                 borderRadius: '6px',
-                background: 'rgba(59, 130, 246, 0.15)',
-                color: '#60a5fa',
+                background: '#EFF6FF',
+                color: '#1D4ED8',
                 fontSize: '12px',
-                border: '1px solid rgba(59, 130, 246, 0.3)',
+                fontWeight: '600',
+                border: '1px solid #BFDBFE',
+                cursor: 'pointer',
               }}
             >
               Fill Worker
@@ -289,12 +321,14 @@ export const Login = () => {
               type="button"
               onClick={() => handleQuickFill('admin')}
               style={{
-                padding: '4px 10px',
+                padding: '5px 12px',
                 borderRadius: '6px',
-                background: 'rgba(168, 85, 247, 0.15)',
-                color: '#c084fc',
+                background: '#EDE9FE',
+                color: '#6D28D9',
                 fontSize: '12px',
-                border: '1px solid rgba(168, 85, 247, 0.3)',
+                fontWeight: '600',
+                border: '1px solid #DDD6FE',
+                cursor: 'pointer',
               }}
             >
               Fill Admin
@@ -303,9 +337,9 @@ export const Login = () => {
         </div>
 
         {!isAdminTab && (
-          <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '13px', color: '#9ca3af' }}>
+          <div style={{ textAlign: 'center', marginTop: '24px', fontSize: '13px', color: '#69736D' }}>
             Don't have an account yet?{' '}
-            <Link to="/register" style={{ color: '#60a5fa', fontWeight: '600' }}>
+            <Link to="/register" style={{ color: '#247A52', fontWeight: '700' }}>
               Create an account
             </Link>
           </div>

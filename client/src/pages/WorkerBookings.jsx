@@ -41,69 +41,94 @@ export const WorkerBookings = () => {
 
   const getStatusBadge = (status) => {
     const map = {
-      pending: { color: '#f59e0b', bg: 'rgba(245, 158, 11, 0.15)', text: 'Pending Your Decision' },
-      accepted: { color: '#60a5fa', bg: 'rgba(59, 130, 246, 0.15)', text: 'Accepted' },
-      in_progress: { color: '#c084fc', bg: 'rgba(192, 132, 252, 0.15)', text: 'In Progress' },
-      completed: { color: '#10b981', bg: 'rgba(16, 185, 129, 0.15)', text: 'Completed' },
-      cancelled: { color: '#ef4444', bg: 'rgba(239, 68, 68, 0.15)', text: 'Cancelled' },
-      rejected: { color: '#9ca3af', bg: 'rgba(156, 163, 175, 0.15)', text: 'Declined' },
+      pending: { color: 'var(--status-pending)', bg: 'var(--status-pending-bg)', border: '#FDE68A', text: 'Pending Decision' },
+      accepted: { color: 'var(--status-accepted)', bg: 'var(--status-accepted-bg)', border: '#BFDBFE', text: 'Accepted' },
+      in_progress: { color: 'var(--status-progress)', bg: 'var(--status-progress-bg)', border: '#DDD6FE', text: 'In Progress' },
+      completed: { color: 'var(--status-completed)', bg: 'var(--status-completed-bg)', border: '#BBF7D0', text: 'Completed' },
+      cancelled: { color: 'var(--status-danger)', bg: 'var(--status-danger-bg)', border: '#FECACA', text: 'Cancelled' },
+      rejected: { color: '#4B5563', bg: '#F3F4F6', border: '#E5E7EB', text: 'Declined' },
     };
-    const s = map[status] || { color: '#fff', bg: '#333', text: status };
+    const s = map[status] || { color: 'var(--text-charcoal)', bg: 'var(--surface-subtle)', border: 'var(--border-warm)', text: status };
     return (
       <span
         style={{
-          padding: '4px 10px',
-          borderRadius: '9999px',
+          padding: '4px 12px',
+          borderRadius: 'var(--radius-full)',
           fontSize: '12px',
           fontWeight: '700',
           color: s.color,
           background: s.bg,
-          border: `1px solid ${s.color}40`,
+          border: `1px solid ${s.border}`,
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '5px',
         }}
       >
+        <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: s.color }}></span>
         {s.text}
       </span>
     );
   };
 
   return (
-    <div className="container" style={{ padding: '32px 16px' }}>
-      <div style={{ marginBottom: '24px' }}>
-        <h1 style={{ fontSize: '28px', fontWeight: '800', marginBottom: '6px' }}>
+    <div className="container" style={{ padding: '36px 20px', maxWidth: '1000px' }}>
+      {/* Title */}
+      <div style={{ marginBottom: '28px' }}>
+        <h1 style={{ fontSize: '28px', fontWeight: '800', color: 'var(--text-charcoal)', letterSpacing: '-0.5px', marginBottom: '4px' }}>
           Job Requests & Bookings
         </h1>
-        <p style={{ color: '#9ca3af', fontSize: '14px' }}>
-          Accept or manage booking requests from customers and contractors
+        <p style={{ color: 'var(--text-slate)', fontSize: '14px' }}>
+          Review incoming client requests, update real-time job progress, and chat directly with customers
         </p>
       </div>
 
       {loading ? (
-        <div style={{ textAlign: 'center', padding: '60px', color: '#9ca3af' }}>Loading assigned jobs...</div>
+        <div style={{ textAlign: 'center', padding: '64px', color: 'var(--text-slate)' }}>
+          <div style={{ fontSize: '24px', marginBottom: '8px' }}>⏳</div>
+          Loading assigned jobs...
+        </div>
       ) : bookings.length === 0 ? (
-        <div className="glass-panel" style={{ padding: '48px', textAlign: 'center', maxWidth: '480px', margin: '40px auto' }}>
-          <div style={{ fontSize: '40px', marginBottom: '12px' }}>🔧</div>
-          <h3 style={{ fontSize: '18px', fontWeight: '700', marginBottom: '8px' }}>No Job Requests Yet</h3>
-          <p style={{ fontSize: '14px', color: '#9ca3af' }}>
-            New booking requests from customers will appear here in real time. Ensure your profile is set to "Available".
+        <div
+          className="card-surface"
+          style={{
+            padding: '48px 24px',
+            textAlign: 'center',
+            maxWidth: '520px',
+            margin: '40px auto',
+          }}
+        >
+          <div style={{ fontSize: '44px', marginBottom: '16px' }}>🔧</div>
+          <h3 style={{ fontSize: '19px', fontWeight: '700', color: 'var(--text-charcoal)', marginBottom: '8px' }}>
+            No Job Requests Yet
+          </h3>
+          <p style={{ fontSize: '14px', color: 'var(--text-slate)', lineHeight: '1.6' }}>
+            New booking requests from customers in your locality will appear here in real time. Ensure your profile is marked as "Available" to receive leads.
           </p>
         </div>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
           {bookings.map((booking) => (
-            <div key={booking._id} className="glass-panel" style={{ padding: '20px' }}>
+            <div
+              key={booking._id}
+              className="card-surface"
+              style={{
+                padding: '24px',
+                borderRadius: 'var(--radius-md)',
+              }}
+            >
               <div
                 style={{
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'flex-start',
                   flexWrap: 'wrap',
-                  gap: '12px',
-                  marginBottom: '14px',
+                  gap: '16px',
+                  marginBottom: '16px',
                 }}
               >
                 <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
-                    <h3 style={{ fontSize: '17px', fontWeight: '700' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
+                    <h3 style={{ fontSize: '18px', fontWeight: '700', color: 'var(--text-charcoal)' }}>
                       Customer: {booking.customerId?.name || 'Customer'}
                     </h3>
                     <span
@@ -112,26 +137,31 @@ export const WorkerBookings = () => {
                         textTransform: 'uppercase',
                         fontWeight: '700',
                         padding: '2px 8px',
-                        borderRadius: '4px',
-                        background: 'rgba(255, 255, 255, 0.08)',
-                        color: '#9ca3af',
+                        borderRadius: 'var(--radius-xs)',
+                        background: 'var(--accent-sage)',
+                        color: 'var(--primary-forest)',
+                        border: '1px solid var(--accent-sage-border)',
                       }}
                     >
                       {booking.customerId?.customerType || 'Individual'}
                     </span>
                   </div>
-                  <div style={{ fontSize: '13px', color: '#9ca3af' }}>
-                    Scheduled: <strong>{new Date(booking.scheduledDate).toLocaleDateString()}</strong> at{' '}
-                    <strong>{booking.scheduledTime}</strong> ({booking.estimatedHours} hrs)
+                  <div style={{ fontSize: '13px', color: 'var(--text-slate)' }}>
+                    Scheduled:{' '}
+                    <strong style={{ color: 'var(--text-charcoal)' }}>
+                      {new Date(booking.scheduledDate).toLocaleDateString()}
+                    </strong>{' '}
+                    at <strong style={{ color: 'var(--text-charcoal)' }}>{booking.scheduledTime}</strong> (
+                    {booking.estimatedHours} {booking.estimatedHours === 1 ? 'hr' : 'hrs'})
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                   <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontSize: '18px', fontWeight: '800', color: '#10b981' }}>
+                    <div style={{ fontSize: '20px', fontWeight: '800', color: 'var(--primary-forest)' }}>
                       ₹{booking.totalEstimatedCost}
                     </div>
-                    <div style={{ fontSize: '11px', color: '#9ca3af' }}>
+                    <div style={{ fontSize: '12px', color: 'var(--text-slate)', marginTop: '2px' }}>
                       (₹{booking.hourlyRate}/hr × {booking.estimatedHours}h)
                     </div>
                   </div>
@@ -139,47 +169,52 @@ export const WorkerBookings = () => {
                 </div>
               </div>
 
-              {/* Job Details */}
+              {/* Job Scope & Customer Details */}
               <div
                 style={{
-                  padding: '12px 14px',
-                  borderRadius: '8px',
-                  background: 'rgba(0,0,0,0.25)',
+                  padding: '14px 18px',
+                  borderRadius: 'var(--radius-sm)',
+                  background: 'var(--surface-subtle)',
+                  border: '1px solid var(--border-warm)',
                   fontSize: '13px',
-                  marginBottom: '16px',
+                  marginBottom: '18px',
+                  lineHeight: '1.5',
                 }}
               >
-                <div style={{ color: '#9ca3af', marginBottom: '4px' }}>
-                  <strong>Service Locality:</strong> {booking.locality}
+                <div style={{ color: 'var(--text-slate)', marginBottom: '4px' }}>
+                  <strong style={{ color: 'var(--text-charcoal)' }}>Service Locality:</strong> {booking.locality}
                 </div>
-                <div style={{ color: '#d1d5db', marginBottom: '4px' }}>
-                  <strong>Job Scope:</strong> {booking.jobDescription}
+                <div style={{ color: 'var(--text-charcoal)', marginBottom: booking.customerId?.phone ? '4px' : '0' }}>
+                  <strong style={{ color: 'var(--text-charcoal)' }}>Job Scope:</strong> {booking.jobDescription}
                 </div>
                 {booking.customerId?.phone && (
-                  <div style={{ color: '#60a5fa' }}>
-                    <strong>Customer Contact:</strong> {booking.customerId.phone}
+                  <div style={{ color: 'var(--primary-forest)', marginTop: '4px', fontWeight: '500' }}>
+                    <strong>Direct Contact:</strong> {booking.customerId.phone}
                   </div>
                 )}
               </div>
 
-              {/* Actions */}
-              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+              {/* Action Buttons */}
+              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'flex-end', alignItems: 'center' }}>
                 <button
                   type="button"
                   onClick={() => setActiveChatBooking(booking)}
                   style={{
                     padding: '8px 16px',
-                    borderRadius: '8px',
-                    background: 'rgba(59, 130, 246, 0.2)',
-                    color: '#60a5fa',
-                    border: '1px solid rgba(59, 130, 246, 0.4)',
+                    borderRadius: 'var(--radius-sm)',
+                    background: 'var(--accent-sage)',
+                    color: 'var(--primary-forest)',
+                    border: '1px solid var(--accent-sage-border)',
                     fontSize: '13px',
                     fontWeight: '600',
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '6px',
+                    transition: 'all var(--transition-fast)',
                   }}
+                  onMouseOver={(e) => (e.currentTarget.style.background = 'var(--accent-sage-dark)')}
+                  onMouseOut={(e) => (e.currentTarget.style.background = 'var(--accent-sage)')}
                 >
                   <span>💬</span> Real-Time Chat
                 </button>
@@ -190,14 +225,17 @@ export const WorkerBookings = () => {
                       type="button"
                       onClick={() => handleUpdateStatus(booking._id, 'accepted', 'Accepted by worker')}
                       style={{
-                        padding: '8px 16px',
-                        borderRadius: '8px',
-                        background: '#10b981',
+                        padding: '8px 18px',
+                        borderRadius: 'var(--radius-sm)',
+                        background: 'var(--primary-forest)',
                         color: '#fff',
                         fontSize: '13px',
                         fontWeight: '600',
                         cursor: 'pointer',
+                        transition: 'background var(--transition-fast)',
                       }}
+                      onMouseOver={(e) => (e.currentTarget.style.background = 'var(--primary-forest-hover)')}
+                      onMouseOut={(e) => (e.currentTarget.style.background = 'var(--primary-forest)')}
                     >
                       ✓ Accept Job
                     </button>
@@ -206,10 +244,10 @@ export const WorkerBookings = () => {
                       onClick={() => handleUpdateStatus(booking._id, 'rejected', 'Declined by worker')}
                       style={{
                         padding: '8px 16px',
-                        borderRadius: '8px',
-                        background: 'rgba(239, 68, 68, 0.2)',
-                        color: '#ef4444',
-                        border: '1px solid rgba(239, 68, 68, 0.4)',
+                        borderRadius: 'var(--radius-sm)',
+                        background: 'var(--status-danger-bg)',
+                        color: 'var(--status-danger)',
+                        border: '1px solid #FECACA',
                         fontSize: '13px',
                         fontWeight: '600',
                         cursor: 'pointer',
@@ -225,16 +263,20 @@ export const WorkerBookings = () => {
                     type="button"
                     onClick={() => handleUpdateStatus(booking._id, 'in_progress', 'Started job on site')}
                     style={{
-                      padding: '8px 16px',
-                      borderRadius: '8px',
-                      background: 'var(--accent)',
-                      color: '#fff',
+                      padding: '8px 18px',
+                      borderRadius: 'var(--radius-sm)',
+                      background: 'var(--status-progress-bg)',
+                      color: 'var(--status-progress)',
+                      border: '1px solid #DDD6FE',
                       fontSize: '13px',
                       fontWeight: '600',
                       cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
                     }}
                   >
-                    🚀 Start Work (In-Progress)
+                    <span>⚡</span> Start Work (In-Progress)
                   </button>
                 )}
 
@@ -243,10 +285,11 @@ export const WorkerBookings = () => {
                     type="button"
                     onClick={() => handleUpdateStatus(booking._id, 'completed', 'Work completed on site')}
                     style={{
-                      padding: '8px 16px',
-                      borderRadius: '8px',
-                      background: '#10b981',
-                      color: '#fff',
+                      padding: '8px 18px',
+                      borderRadius: 'var(--radius-sm)',
+                      background: 'var(--status-completed-bg)',
+                      color: 'var(--status-completed)',
+                      border: '1px solid #BBF7D0',
                       fontSize: '13px',
                       fontWeight: '600',
                       cursor: 'pointer',

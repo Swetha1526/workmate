@@ -1,11 +1,12 @@
 # 🛠️ WorkMate — On-Demand Hourly Worker Hiring Marketplace
 
-> **GUVI MERN Stack Capstone Project**  
-> A production-ready marketplace connecting local customers and businesses with skilled hourly and daily-wage trade professionals. Built with React 19, Vite, Node.js, Express, MongoDB Atlas, Mongoose, Socket.IO, JWT, and bcrypt.
+> **Production-Ready Local Trade Worker Marketplace**  
+> A premium, light-themed web platform connecting local customers and businesses with verified hourly trade professionals. Built with React 19, Vite, Node.js, Express, MongoDB Atlas, Mongoose, Socket.IO, JWT, and bcrypt.
 
 [![MERN Stack](https://img.shields.io/badge/Stack-MERN-blue.svg)](https://react.dev)
 [![Socket.IO](https://img.shields.io/badge/RealTime-Socket.IO-black.svg)](https://socket.io)
 [![MongoDB Atlas](https://img.shields.io/badge/Database-MongoDB%20Atlas-green.svg)](https://www.mongodb.com/atlas)
+[![UI Theme](https://img.shields.io/badge/Design-Light%20%26%20Premium-247A52.svg)](https://github.com/Swetha1526/workmate)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
@@ -25,6 +26,21 @@ WorkMate addresses the difficulty of finding reliable, skilled blue-collar worke
 8. 📦 **Helpers** — Household shifting, luggage loading & manual labor
 9. 🧱 **Masons** — Brickwork, plastering, tiling & civil repairs
 10. 👷 **Mason Helpers** — Mortar mixing, material shifting & civil support
+
+### 🎨 Light & Premium Design System
+WorkMate features a human-crafted light visual identity:
+- **Background**: Warm ivory `#FAF9F6`
+- **Cards & Surfaces**: Crisp white `#FFFFFF` with fine borders (`#E7E8E2`)
+- **Primary Typography**: Deep charcoal `#202923`
+- **Secondary Typography**: Slate `#69736D`
+- **Primary Brand Accent**: Forest green `#247A52` (hover `#1C6241`)
+- **Soft Accent Surfaces**: Sage `#E8F2EA` with border `#BCD9BF`
+- **Accessible Semantic Statuses**:
+  - Pending: `#B45309` on `#FEF3C7`
+  - Accepted: `#1D4ED8` on `#DBEAFE`
+  - In Progress: `#6D28D9` on `#EDE9FE`
+  - Completed: `#15803D` on `#DCFCE7`
+  - Cancelled: `#B91C1C` on `#FEE2E2`
 
 ---
 

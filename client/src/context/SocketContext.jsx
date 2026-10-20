@@ -50,30 +50,49 @@ export const SocketProvider = ({ children }) => {
   return (
     <SocketContext.Provider value={{ socket, isConnected, incomingNotification }}>
       {children}
-      {/* Toast Alert for incoming notifications */}
+      {/* Light Toast Alert for real-time notifications */}
       {incomingNotification && (
         <div
+          className="animate-fade-in"
           style={{
             position: 'fixed',
             bottom: '24px',
             right: '24px',
-            background: 'rgba(17, 24, 39, 0.95)',
-            border: '1px solid rgba(59, 130, 246, 0.5)',
-            padding: '14px 20px',
-            borderRadius: '12px',
-            boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
+            background: 'var(--surface-white)',
+            border: '1px solid var(--accent-sage-border)',
+            padding: '14px 18px',
+            borderRadius: 'var(--radius-md)',
+            boxShadow: 'var(--shadow-card-hover)',
             zIndex: 9999,
             display: 'flex',
             alignItems: 'center',
             gap: '12px',
-            color: '#fff',
-            animation: 'fadeIn 0.3s ease',
+            color: 'var(--text-charcoal)',
+            maxWidth: '380px',
           }}
         >
-          <span style={{ fontSize: '20px' }}>💬</span>
+          <div
+            style={{
+              width: '36px',
+              height: '36px',
+              borderRadius: 'var(--radius-sm)',
+              background: 'var(--accent-sage)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '18px',
+              flexShrink: 0,
+            }}
+          >
+            💬
+          </div>
           <div>
-            <div style={{ fontWeight: '600', fontSize: '14px' }}>{incomingNotification.title}</div>
-            <div style={{ fontSize: '13px', color: '#9ca3af' }}>{incomingNotification.body}</div>
+            <div style={{ fontWeight: '700', fontSize: '14px', color: 'var(--text-charcoal)', marginBottom: '2px' }}>
+              {incomingNotification.title}
+            </div>
+            <div style={{ fontSize: '13px', color: 'var(--text-slate)', lineHeight: '1.4' }}>
+              {incomingNotification.body}
+            </div>
           </div>
         </div>
       )}

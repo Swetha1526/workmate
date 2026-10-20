@@ -78,31 +78,52 @@ export const WorkerProfileEdit = () => {
   };
 
   if (loading) {
-    return <div style={{ textAlign: 'center', padding: '60px', color: '#9ca3af' }}>Loading profile...</div>;
+    return (
+      <div style={{ textAlign: 'center', padding: '64px', color: 'var(--text-slate)' }}>
+        <div style={{ fontSize: '24px', marginBottom: '8px' }}>⏳</div>
+        Loading worker profile...
+      </div>
+    );
   }
 
   return (
-    <div style={{ maxWidth: '640px', margin: '32px auto', padding: '0 16px' }}>
-      <div className="glass-panel" style={{ padding: '32px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+    <div style={{ maxWidth: '680px', margin: '36px auto', padding: '0 20px' }}>
+      <div className="card-surface" style={{ padding: '36px', borderRadius: 'var(--radius-lg)' }}>
+        {/* Header & Verification Pill */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'flex-start',
+            flexWrap: 'wrap',
+            gap: '12px',
+            marginBottom: '24px',
+            borderBottom: '1px solid var(--border-warm)',
+            paddingBottom: '20px',
+          }}
+        >
           <div>
-            <h1 style={{ fontSize: '24px', fontWeight: '800' }}>Manage Worker Profile</h1>
-            <p style={{ color: '#9ca3af', fontSize: '13px' }}>
-              Keep your trade skills, hourly rate, and availability up to date
+            <h1 style={{ fontSize: '24px', fontWeight: '800', color: 'var(--text-charcoal)', letterSpacing: '-0.4px', marginBottom: '4px' }}>
+              Manage Worker Profile
+            </h1>
+            <p style={{ color: 'var(--text-slate)', fontSize: '13px' }}>
+              Keep your trade expertise, operating locality, and hourly rates current
             </p>
           </div>
 
-          {/* Verification Badge */}
           {profile?.isVerified ? (
             <span
               style={{
                 padding: '6px 14px',
-                borderRadius: '9999px',
-                background: 'rgba(16, 185, 129, 0.15)',
-                color: '#10b981',
+                borderRadius: 'var(--radius-full)',
+                background: 'var(--accent-sage)',
+                color: 'var(--primary-forest)',
                 fontSize: '12px',
                 fontWeight: '700',
-                border: '1px solid rgba(16, 185, 129, 0.3)',
+                border: '1px solid var(--accent-sage-border)',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '4px',
               }}
             >
               ✓ Verified Profile
@@ -111,12 +132,15 @@ export const WorkerProfileEdit = () => {
             <span
               style={{
                 padding: '6px 14px',
-                borderRadius: '9999px',
-                background: 'rgba(245, 158, 11, 0.15)',
-                color: '#f59e0b',
+                borderRadius: 'var(--radius-full)',
+                background: 'var(--status-pending-bg)',
+                color: 'var(--status-pending)',
                 fontSize: '12px',
                 fontWeight: '700',
-                border: '1px solid rgba(245, 158, 11, 0.3)',
+                border: '1px solid #FDE68A',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '4px',
               }}
             >
               ⏳ Verification Pending
@@ -127,37 +151,29 @@ export const WorkerProfileEdit = () => {
         {message.text && (
           <div
             style={{
-              padding: '12px',
-              borderRadius: '8px',
-              marginBottom: '20px',
-              background: message.type === 'success' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)',
-              color: message.type === 'success' ? '#10b981' : '#ef4444',
-              border: `1px solid ${message.type === 'success' ? '#10b98140' : '#ef444440'}`,
+              padding: '12px 16px',
+              borderRadius: 'var(--radius-sm)',
+              marginBottom: '24px',
+              background: message.type === 'success' ? 'var(--status-completed-bg)' : 'var(--status-danger-bg)',
+              color: message.type === 'success' ? 'var(--status-completed)' : 'var(--status-danger)',
+              border: `1px solid ${message.type === 'success' ? '#BBF7D0' : '#FECACA'}`,
               fontSize: '13px',
+              fontWeight: '500',
             }}
           >
+            {message.type === 'success' ? '✓ ' : '⚠️ '}
             {message.text}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <div>
-            <label style={{ display: 'block', fontSize: '13px', color: '#9ca3af', marginBottom: '6px' }}>
-              Primary Trade Category
-            </label>
+            <label className="form-label">Primary Trade Category</label>
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '10px 14px',
-                borderRadius: '8px',
-                background: '#111827',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                color: '#fff',
-                fontSize: '14px',
-                outline: 'none',
-              }}
+              className="form-input"
+              style={{ cursor: 'pointer' }}
             >
               {CATEGORIES.filter((c) => c.id !== 'all').map((cat) => (
                 <option key={cat.id} value={cat.id}>
@@ -168,139 +184,87 @@ export const WorkerProfileEdit = () => {
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '13px', color: '#9ca3af', marginBottom: '6px' }}>
-              Skills (comma separated)
-            </label>
+            <label className="form-label">Skills & Specializations (comma separated)</label>
             <input
               type="text"
               required
-              placeholder="e.g. Pipe Fitting, Leak Detection, Solar Water Heater"
+              className="form-input"
+              placeholder="e.g. Pipe Fitting, Leak Detection, Solar Water Heater, CPVC Welding"
               value={skills}
               onChange={(e) => setSkills(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '10px 14px',
-                borderRadius: '8px',
-                background: 'rgba(0,0,0,0.3)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                color: '#fff',
-                fontSize: '14px',
-                outline: 'none',
-              }}
             />
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
             <div>
-              <label style={{ display: 'block', fontSize: '13px', color: '#9ca3af', marginBottom: '6px' }}>
-                Years of Experience
-              </label>
+              <label className="form-label">Years of Experience</label>
               <input
                 type="number"
                 min="0"
                 max="50"
                 required
+                className="form-input"
                 value={experienceYears}
                 onChange={(e) => setExperienceYears(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '10px 14px',
-                  borderRadius: '8px',
-                  background: 'rgba(0,0,0,0.3)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  color: '#fff',
-                  fontSize: '14px',
-                  outline: 'none',
-                }}
               />
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '13px', color: '#9ca3af', marginBottom: '6px' }}>
-                Hourly Rate (₹)
-              </label>
+              <label className="form-label">Hourly Rate (₹)</label>
               <input
                 type="number"
                 min="50"
                 max="5000"
                 required
+                className="form-input"
                 value={hourlyRate}
                 onChange={(e) => setHourlyRate(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '10px 14px',
-                  borderRadius: '8px',
-                  background: 'rgba(0,0,0,0.3)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  color: '#fff',
-                  fontSize: '14px',
-                  outline: 'none',
-                }}
               />
             </div>
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '13px', color: '#9ca3af', marginBottom: '6px' }}>
-              Operating Locality / Region
-            </label>
+            <label className="form-label">Operating Locality / Region</label>
             <input
               type="text"
               required
+              className="form-input"
               placeholder="e.g. T. Nagar, Chennai"
               value={locality}
               onChange={(e) => setLocality(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '10px 14px',
-                borderRadius: '8px',
-                background: 'rgba(0,0,0,0.3)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                color: '#fff',
-                fontSize: '14px',
-                outline: 'none',
-              }}
             />
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '13px', color: '#9ca3af', marginBottom: '6px' }}>
-              Professional Bio & Highlights
-            </label>
+            <label className="form-label">Professional Bio & Highlights</label>
             <textarea
               rows={4}
-              placeholder="Tell customers about your training, certifications, and specialized tools..."
+              className="form-input"
+              style={{ resize: 'vertical' }}
+              placeholder="Tell customers about your training, apprenticeships, certifications, and high-precision tools..."
               value={bio}
               onChange={(e) => setBio(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '10px 14px',
-                borderRadius: '8px',
-                background: 'rgba(0,0,0,0.3)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                color: '#fff',
-                fontSize: '14px',
-                outline: 'none',
-              }}
             />
           </div>
 
-          {/* Availability Toggle */}
+          {/* Availability Toggle Box */}
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              padding: '12px 16px',
-              borderRadius: '8px',
-              background: 'rgba(0,0,0,0.25)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              padding: '14px 18px',
+              borderRadius: 'var(--radius-sm)',
+              background: 'var(--surface-subtle)',
+              border: '1px solid var(--border-warm)',
             }}
           >
             <div>
-              <div style={{ fontSize: '14px', fontWeight: '600' }}>Accepting New Bookings</div>
-              <div style={{ fontSize: '12px', color: '#9ca3af' }}>
-                Toggle off when busy on a job or unavailable for hire
+              <div style={{ fontSize: '14px', fontWeight: '700', color: 'var(--text-charcoal)' }}>
+                Accepting New Bookings
+              </div>
+              <div style={{ fontSize: '12px', color: 'var(--text-slate)' }}>
+                Toggle off when busy with an existing contract or temporarily off-duty
               </div>
             </div>
             <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', gap: '8px' }}>
@@ -308,9 +272,15 @@ export const WorkerProfileEdit = () => {
                 type="checkbox"
                 checked={isAvailable}
                 onChange={(e) => setIsAvailable(e.target.checked)}
-                style={{ width: '18px', height: '18px' }}
+                style={{ width: '18px', height: '18px', accentColor: 'var(--primary-forest)' }}
               />
-              <span style={{ fontSize: '13px', fontWeight: '700', color: isAvailable ? '#10b981' : '#ef4444' }}>
+              <span
+                style={{
+                  fontSize: '13px',
+                  fontWeight: '700',
+                  color: isAvailable ? 'var(--status-completed)' : 'var(--status-danger)',
+                }}
+              >
                 {isAvailable ? 'Available' : 'Busy'}
               </span>
             </label>
@@ -319,15 +289,11 @@ export const WorkerProfileEdit = () => {
           <button
             type="submit"
             disabled={saving}
+            className="btn-primary"
             style={{
-              marginTop: '10px',
-              padding: '12px',
-              borderRadius: '8px',
-              background: 'linear-gradient(135deg, var(--primary), var(--accent))',
-              color: '#fff',
-              fontWeight: '600',
-              fontSize: '14px',
-              cursor: 'pointer',
+              padding: '13px',
+              fontSize: '15px',
+              marginTop: '4px',
             }}
           >
             {saving ? 'Saving Profile...' : 'Save Profile Changes'}

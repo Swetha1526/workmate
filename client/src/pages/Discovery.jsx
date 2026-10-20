@@ -141,408 +141,429 @@ export const Discovery = () => {
   };
 
   return (
-    <div className="container" style={{ padding: '32px 16px' }}>
-      {/* Header */}
-      <div style={{ marginBottom: '24px' }}>
-        <h1 style={{ fontSize: '32px', fontWeight: '800', marginBottom: '8px' }}>
-          Find Local Trade Workers
-        </h1>
-        <p style={{ color: '#9ca3af', fontSize: '15px' }}>
-          Compare hourly rates, verify ratings, and book verified workers across Chennai & nearby localities
-        </p>
-      </div>
+    <div style={{ backgroundColor: '#FAF9F6', minHeight: '100vh', padding: '36px 0 64px' }}>
+      <div className="container">
+        {/* Header */}
+        <div style={{ marginBottom: '28px' }}>
+          <h1 style={{ fontSize: '32px', fontWeight: '800', color: '#202923', letterSpacing: '-0.5px', marginBottom: '8px' }}>
+            Find Verified Local Trade Workers
+          </h1>
+          <p style={{ color: '#69736D', fontSize: '15px' }}>
+            Browse certified trade workers, compare transparent hourly rates, and book directly
+          </p>
+        </div>
 
-      {/* Category Pills Bar */}
-      <div
-        style={{
-          display: 'flex',
-          gap: '8px',
-          overflowX: 'auto',
-          paddingBottom: '12px',
-          marginBottom: '24px',
-          scrollbarWidth: 'thin',
-        }}
-      >
-        {CATEGORIES.map((cat) => (
-          <button
-            key={cat.id}
-            type="button"
-            onClick={() => handleCategorySelect(cat.id)}
-            style={{
-              padding: '8px 16px',
-              borderRadius: '9999px',
-              whiteSpace: 'nowrap',
-              fontSize: '13px',
-              fontWeight: '600',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              border: category === cat.id ? '1px solid #3b82f6' : '1px solid rgba(255, 255, 255, 0.08)',
-              background: category === cat.id ? 'rgba(59, 130, 246, 0.2)' : 'rgba(255, 255, 255, 0.03)',
-              color: category === cat.id ? '#60a5fa' : '#9ca3af',
-              transition: 'all 0.2s ease',
-            }}
-          >
-            <span>{cat.icon}</span>
-            <span>{cat.name}</span>
-          </button>
-        ))}
-      </div>
-
-      {/* Filter & Search Bar */}
-      <div
-        className="glass-panel"
-        style={{
-          padding: '18px 20px',
-          marginBottom: '32px',
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '14px',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
-        <form onSubmit={handleSearchSubmit} style={{ display: 'flex', gap: '10px', flex: 1, minWidth: '280px' }}>
-          <input
-            type="text"
-            placeholder="Search skills, services, or keywords..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            style={{
-              flex: 1,
-              padding: '10px 14px',
-              borderRadius: '8px',
-              background: 'rgba(0,0,0,0.3)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              color: '#fff',
-              fontSize: '13px',
-              outline: 'none',
-            }}
-          />
-          <input
-            type="text"
-            placeholder="Locality (e.g. Velachery)"
-            value={locality}
-            onChange={(e) => setLocality(e.target.value)}
-            style={{
-              width: '180px',
-              padding: '10px 14px',
-              borderRadius: '8px',
-              background: 'rgba(0,0,0,0.3)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              color: '#fff',
-              fontSize: '13px',
-              outline: 'none',
-            }}
-          />
-          <button
-            type="submit"
-            style={{
-              padding: '10px 18px',
-              borderRadius: '8px',
-              background: 'var(--primary)',
-              color: '#fff',
-              fontSize: '13px',
-              fontWeight: '600',
-              cursor: 'pointer',
-            }}
-          >
-            Search
-          </button>
-        </form>
-
-        {/* Filters */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px' }}>
-            <span style={{ color: '#9ca3af' }}>Max Rate:</span>
-            <input
-              type="number"
-              placeholder="₹500"
-              value={maxRate}
-              onChange={(e) => setMaxRate(e.target.value)}
-              onBlur={fetchWorkers}
+        {/* Category Pills Bar */}
+        <div
+          style={{
+            display: 'flex',
+            gap: '8px',
+            overflowX: 'auto',
+            paddingBottom: '12px',
+            marginBottom: '24px',
+            scrollbarWidth: 'thin',
+          }}
+        >
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat.id}
+              type="button"
+              onClick={() => handleCategorySelect(cat.id)}
               style={{
-                width: '80px',
-                padding: '6px 10px',
-                borderRadius: '6px',
-                background: 'rgba(0,0,0,0.3)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                color: '#fff',
+                padding: '8px 16px',
+                borderRadius: '9999px',
+                whiteSpace: 'nowrap',
+                fontSize: '13px',
+                fontWeight: '600',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                border: category === cat.id ? '1px solid #247A52' : '1px solid #E7E8E2',
+                background: category === cat.id ? '#E8F2EA' : '#FFFFFF',
+                color: category === cat.id ? '#247A52' : '#69736D',
+                boxShadow: category === cat.id ? '0 1px 3px rgba(36, 122, 82, 0.15)' : 'none',
+                transition: 'all 0.15s ease',
+              }}
+            >
+              <span>{cat.icon}</span>
+              <span>{cat.name}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Filter & Search Bar */}
+        <div
+          style={{
+            background: '#FFFFFF',
+            border: '1px solid #E7E8E2',
+            borderRadius: '14px',
+            boxShadow: '0 2px 6px rgba(32, 41, 35, 0.04)',
+            padding: '16px 20px',
+            marginBottom: '32px',
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '14px',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <form onSubmit={handleSearchSubmit} style={{ display: 'flex', gap: '10px', flex: 1, minWidth: '280px' }}>
+            <input
+              type="text"
+              placeholder="Search skills, services, or keywords..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              style={{
+                flex: 1,
+                padding: '10px 14px',
+                borderRadius: '8px',
+                background: '#FAF9F6',
+                border: '1px solid #E7E8E2',
+                color: '#202923',
                 fontSize: '13px',
                 outline: 'none',
               }}
             />
-          </div>
-
-          <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', cursor: 'pointer' }}>
             <input
-              type="checkbox"
-              checked={isAvailableOnly}
-              onChange={(e) => setIsAvailableOnly(e.target.checked)}
+              type="text"
+              placeholder="Locality (e.g. Velachery)"
+              value={locality}
+              onChange={(e) => setLocality(e.target.value)}
+              style={{
+                width: '180px',
+                padding: '10px 14px',
+                borderRadius: '8px',
+                background: '#FAF9F6',
+                border: '1px solid #E7E8E2',
+                color: '#202923',
+                fontSize: '13px',
+                outline: 'none',
+              }}
             />
-            Available Now
-          </label>
+            <button
+              type="submit"
+              style={{
+                padding: '10px 20px',
+                borderRadius: '8px',
+                background: '#247A52',
+                color: '#FFFFFF',
+                fontSize: '13px',
+                fontWeight: '700',
+                cursor: 'pointer',
+              }}
+            >
+              Filter
+            </button>
+          </form>
 
-          <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', cursor: 'pointer' }}>
-            <input
-              type="checkbox"
-              checked={isVerifiedOnly}
-              onChange={(e) => setIsVerifiedOnly(e.target.checked)}
-            />
-            Verified Only
-          </label>
-        </div>
-      </div>
+          {/* Filters */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '18px', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px' }}>
+              <span style={{ color: '#69736D', fontWeight: '500' }}>Max Rate:</span>
+              <input
+                type="number"
+                placeholder="₹500"
+                value={maxRate}
+                onChange={(e) => setMaxRate(e.target.value)}
+                onBlur={fetchWorkers}
+                style={{
+                  width: '84px',
+                  padding: '6px 10px',
+                  borderRadius: '6px',
+                  background: '#FAF9F6',
+                  border: '1px solid #E7E8E2',
+                  color: '#202923',
+                  fontSize: '13px',
+                  outline: 'none',
+                }}
+              />
+            </div>
 
-      {/* Workers Grid */}
-      {loading ? (
-        <div style={{ padding: '60px', textAlign: 'center', color: '#9ca3af' }}>
-          Searching verified workers in MongoDB...
-        </div>
-      ) : workers.length === 0 ? (
-        <div
-          className="glass-panel"
-          style={{ padding: '48px', textAlign: 'center', maxWidth: '500px', margin: '0 auto' }}
-        >
-          <div style={{ fontSize: '40px', marginBottom: '12px' }}>🔍</div>
-          <h3 style={{ fontSize: '18px', fontWeight: '700', marginBottom: '8px' }}>No Workers Found</h3>
-          <p style={{ fontSize: '14px', color: '#9ca3af', marginBottom: '20px' }}>
-            No worker profiles currently match your search filters. Try clearing locality or expanding rate filters.
-          </p>
-          <button
-            onClick={() => {
-              setCategory('all');
-              setLocality('');
-              setSearch('');
-              setMaxRate('');
-              setIsAvailableOnly(false);
-              setIsVerifiedOnly(false);
-              setSearchParams({});
-            }}
-            style={{
-              padding: '8px 18px',
-              borderRadius: '8px',
-              background: 'rgba(59, 130, 246, 0.2)',
-              color: '#60a5fa',
-              border: '1px solid rgba(59, 130, 246, 0.4)',
-              fontSize: '13px',
-              fontWeight: '600',
-              cursor: 'pointer',
-            }}
-          >
-            Reset All Filters
-          </button>
-        </div>
-      ) : (
-        <div>
-          <div style={{ fontSize: '13px', color: '#9ca3af', marginBottom: '16px' }}>
-            Showing <strong>{workers.length}</strong> available workers
+            <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: '#202923', cursor: 'pointer', fontWeight: '500' }}>
+              <input
+                type="checkbox"
+                checked={isAvailableOnly}
+                onChange={(e) => setIsAvailableOnly(e.target.checked)}
+              />
+              Available Now
+            </label>
+
+            <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: '#202923', cursor: 'pointer', fontWeight: '500' }}>
+              <input
+                type="checkbox"
+                checked={isVerifiedOnly}
+                onChange={(e) => setIsVerifiedOnly(e.target.checked)}
+              />
+              Verified Only
+            </label>
           </div>
+        </div>
 
+        {/* Workers Grid */}
+        {loading ? (
+          <div style={{ padding: '60px', textAlign: 'center', color: '#69736D' }}>
+            Loading available trade workers...
+          </div>
+        ) : workers.length === 0 ? (
           <div
             style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-              gap: '20px',
+              background: '#FFFFFF',
+              border: '1px solid #E7E8E2',
+              borderRadius: '14px',
+              padding: '48px',
+              textAlign: 'center',
+              maxWidth: '480px',
+              margin: '32px auto',
+              boxShadow: '0 2px 6px rgba(32, 41, 35, 0.04)',
             }}
           >
-            {workers.map((worker) => (
-              <div
-                key={worker._id}
-                className="glass-panel"
-                style={{
-                  padding: '20px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  position: 'relative',
-                  border: worker.isVerified ? '1px solid rgba(59, 130, 246, 0.25)' : undefined,
-                }}
-              >
-                {/* Demo Badge */}
-                {worker.isDemo && (
-                  <span
-                    style={{
-                      position: 'absolute',
-                      top: '12px',
-                      right: '12px',
-                      fontSize: '10px',
-                      padding: '2px 6px',
-                      borderRadius: '4px',
-                      background: 'rgba(234, 179, 8, 0.15)',
-                      color: '#facc15',
-                      border: '1px solid rgba(234, 179, 8, 0.3)',
-                      fontWeight: '700',
-                    }}
-                  >
-                    DEMO DATA
-                  </span>
-                )}
+            <div style={{ fontSize: '40px', marginBottom: '12px' }}>🔍</div>
+            <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#202923', marginBottom: '8px' }}>
+              No Workers Found
+            </h3>
+            <p style={{ fontSize: '14px', color: '#69736D', marginBottom: '24px' }}>
+              No trade worker profiles currently match your search criteria. Try broadening your locality or rate filter.
+            </p>
+            <button
+              onClick={() => {
+                setCategory('all');
+                setLocality('');
+                setSearch('');
+                setMaxRate('');
+                setIsAvailableOnly(false);
+                setIsVerifiedOnly(false);
+                setSearchParams({});
+              }}
+              style={{
+                padding: '9px 20px',
+                borderRadius: '8px',
+                background: '#E8F2EA',
+                color: '#247A52',
+                border: '1px solid #BCD9BF',
+                fontSize: '13px',
+                fontWeight: '700',
+                cursor: 'pointer',
+              }}
+            >
+              Reset Filters
+            </button>
+          </div>
+        ) : (
+          <div>
+            <div style={{ fontSize: '13px', color: '#69736D', marginBottom: '16px' }}>
+              Showing <strong>{workers.length}</strong> matching trade workers
+            </div>
 
-                {/* Worker Header */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '14px' }}>
-                  <div
-                    style={{
-                      width: '48px',
-                      height: '48px',
-                      borderRadius: '50%',
-                      background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '20px',
-                      fontWeight: '700',
-                      color: '#fff',
-                      flexShrink: 0,
-                    }}
-                  >
-                    {worker.userId?.name?.charAt(0) || 'W'}
-                  </div>
-
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <h3
-                        style={{
-                          fontSize: '16px',
-                          fontWeight: '700',
-                          whiteSpace: 'nowrap',
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-                        }}
-                      >
-                        {worker.userId?.name || 'Worker'}
-                      </h3>
-                      {worker.isVerified && (
-                        <span title="Verified Trade Professional" style={{ color: '#3b82f6', fontSize: '14px' }}>
-                          ✓
-                        </span>
-                      )}
-                    </div>
-                    <div style={{ fontSize: '12px', color: '#60a5fa', textTransform: 'capitalize' }}>
-                      {worker.category.replace('_', ' ')} • {worker.experienceYears} yrs exp
-                    </div>
-                  </div>
-                </div>
-
-                {/* Rating & Rate stats */}
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+                gap: '22px',
+              }}
+            >
+              {workers.map((worker) => (
                 <div
+                  key={worker._id}
                   style={{
+                    background: '#FFFFFF',
+                    border: '1px solid #E7E8E2',
+                    borderRadius: '14px',
+                    padding: '22px',
                     display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    padding: '8px 12px',
-                    borderRadius: '8px',
-                    background: 'rgba(0,0,0,0.25)',
-                    marginBottom: '12px',
-                    fontSize: '13px',
+                    flexDirection: 'column',
+                    position: 'relative',
+                    boxShadow: '0 2px 8px rgba(32, 41, 35, 0.04)',
+                    transition: 'all 0.2s ease',
                   }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                    <span style={{ color: '#f59e0b' }}>⭐</span>
-                    <span style={{ fontWeight: '700' }}>
-                      {worker.averageRating > 0 ? worker.averageRating.toFixed(1) : 'New'}
-                    </span>
-                    <span style={{ color: '#6b7280', fontSize: '11px' }}>
-                      ({worker.reviewCount || 0} reviews)
-                    </span>
-                  </div>
-
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                    <span style={{ color: '#10b981', fontWeight: '800', fontSize: '15px' }}>
-                      ₹{worker.hourlyRate}
-                    </span>
-                    <span style={{ color: '#6b7280', fontSize: '11px' }}>/ hour</span>
-                  </div>
-                </div>
-
-                {/* Locality */}
-                <div style={{ fontSize: '12px', color: '#9ca3af', marginBottom: '12px' }}>
-                  📍 {worker.locality}
-                </div>
-
-                {/* Bio snippet */}
-                <p
-                  style={{
-                    fontSize: '13px',
-                    color: '#d1d5db',
-                    lineHeight: '1.4',
-                    marginBottom: '14px',
-                    display: '-webkit-box',
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: 'vertical',
-                    overflow: 'hidden',
-                  }}
-                >
-                  {worker.bio || 'Available for hourly on-demand trade service requests.'}
-                </p>
-
-                {/* Skills tags */}
-                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '18px' }}>
-                  {worker.skills?.slice(0, 3).map((skill, sIdx) => (
+                  {/* Demo Badge */}
+                  {worker.isDemo && (
                     <span
-                      key={sIdx}
                       style={{
-                        fontSize: '11px',
-                        padding: '2px 8px',
+                        position: 'absolute',
+                        top: '12px',
+                        right: '12px',
+                        fontSize: '10px',
+                        padding: '2px 7px',
                         borderRadius: '4px',
-                        background: 'rgba(255, 255, 255, 0.05)',
-                        border: '1px solid rgba(255, 255, 255, 0.08)',
-                        color: '#9ca3af',
+                        background: '#FEF3C7',
+                        color: '#B45309',
+                        border: '1px solid #FDE68A',
+                        fontWeight: '700',
                       }}
                     >
-                      {skill}
-                    </span>
-                  ))}
-                  {worker.skills?.length > 3 && (
-                    <span style={{ fontSize: '11px', color: '#6b7280' }}>
-                      +{worker.skills.length - 3} more
+                      DEMO PROFILE
                     </span>
                   )}
-                </div>
 
-                {/* Actions */}
-                <div style={{ marginTop: 'auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                  <button
-                    type="button"
-                    onClick={() => setSelectedWorker(worker)}
+                  {/* Worker Header */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '14px' }}>
+                    <div
+                      style={{
+                        width: '48px',
+                        height: '48px',
+                        borderRadius: '50%',
+                        background: '#E8F2EA',
+                        border: '1px solid #BCD9BF',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '20px',
+                        fontWeight: '700',
+                        color: '#247A52',
+                        flexShrink: 0,
+                      }}
+                    >
+                      {worker.userId?.name?.charAt(0) || 'W'}
+                    </div>
+
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <h3
+                          style={{
+                            fontSize: '16px',
+                            fontWeight: '700',
+                            color: '#202923',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            margin: 0,
+                          }}
+                        >
+                          {worker.userId?.name || 'Worker'}
+                        </h3>
+                        {worker.isVerified && (
+                          <span title="Verified Professional" style={{ color: '#247A52', fontSize: '14px', fontWeight: '800' }}>
+                            ✓
+                          </span>
+                        )}
+                      </div>
+                      <div style={{ fontSize: '13px', color: '#69736D', textTransform: 'capitalize' }}>
+                        {worker.category.replace('_', ' ')} • {worker.experienceYears} yrs exp
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Rating & Rate Stats */}
+                  <div
                     style={{
-                      padding: '8px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '8px 12px',
                       borderRadius: '8px',
-                      background: 'rgba(255, 255, 255, 0.05)',
-                      color: '#d1d5db',
-                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                      background: '#FAF9F6',
+                      border: '1px solid #E7E8E2',
+                      marginBottom: '12px',
                       fontSize: '13px',
-                      fontWeight: '600',
-                      cursor: 'pointer',
                     }}
                   >
-                    Details
-                  </button>
-                  <button
-                    type="button"
-                    disabled={!worker.isAvailable}
-                    onClick={() => openBookingModal(worker)}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      <span style={{ color: '#F59E0B' }}>⭐</span>
+                      <span style={{ fontWeight: '700', color: '#202923' }}>
+                        {worker.averageRating > 0 ? worker.averageRating.toFixed(1) : 'New'}
+                      </span>
+                      <span style={{ color: '#8E9992', fontSize: '12px' }}>
+                        ({worker.reviewCount || 0} reviews)
+                      </span>
+                    </div>
+
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
+                      <span style={{ color: '#247A52', fontWeight: '800', fontSize: '16px' }}>
+                        ₹{worker.hourlyRate}
+                      </span>
+                      <span style={{ color: '#69736D', fontSize: '12px' }}>/hr</span>
+                    </div>
+                  </div>
+
+                  {/* Locality */}
+                  <div style={{ fontSize: '13px', color: '#69736D', marginBottom: '10px' }}>
+                    📍 {worker.locality}
+                  </div>
+
+                  {/* Bio snippet */}
+                  <p
                     style={{
-                      padding: '8px',
-                      borderRadius: '8px',
-                      background: worker.isAvailable
-                        ? 'linear-gradient(135deg, var(--primary), var(--accent))'
-                        : '#374151',
-                      color: '#fff',
                       fontSize: '13px',
-                      fontWeight: '600',
-                      cursor: worker.isAvailable ? 'pointer' : 'not-allowed',
-                      opacity: worker.isAvailable ? 1 : 0.6,
+                      color: '#4B554F',
+                      lineHeight: '1.45',
+                      marginBottom: '14px',
+                      display: '-webkit-box',
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: 'vertical',
+                      overflow: 'hidden',
                     }}
                   >
-                    {worker.isAvailable ? 'Book Now' : 'Busy'}
-                  </button>
+                    {worker.bio || 'Available for hourly on-demand trade service requests.'}
+                  </p>
+
+                  {/* Skills tags */}
+                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '18px' }}>
+                    {worker.skills?.slice(0, 3).map((skill, sIdx) => (
+                      <span
+                        key={sIdx}
+                        style={{
+                          fontSize: '11px',
+                          fontWeight: '500',
+                          padding: '3px 8px',
+                          borderRadius: '4px',
+                          background: '#FAF9F6',
+                          border: '1px solid #E7E8E2',
+                          color: '#4B554F',
+                        }}
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                    {worker.skills?.length > 3 && (
+                      <span style={{ fontSize: '11px', color: '#8E9992', alignSelf: 'center' }}>
+                        +{worker.skills.length - 3} more
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Actions */}
+                  <div style={{ marginTop: 'auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedWorker(worker)}
+                      style={{
+                        padding: '9px',
+                        borderRadius: '8px',
+                        background: '#FAF9F6',
+                        color: '#202923',
+                        border: '1px solid #E7E8E2',
+                        fontSize: '13px',
+                        fontWeight: '600',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      Profile
+                    </button>
+                    <button
+                      type="button"
+                      disabled={!worker.isAvailable}
+                      onClick={() => openBookingModal(worker)}
+                      style={{
+                        padding: '9px',
+                        borderRadius: '8px',
+                        background: worker.isAvailable ? '#247A52' : '#E7E8E2',
+                        color: worker.isAvailable ? '#FFFFFF' : '#8E9992',
+                        fontSize: '13px',
+                        fontWeight: '700',
+                        cursor: worker.isAvailable ? 'pointer' : 'not-allowed',
+                      }}
+                    >
+                      {worker.isAvailable ? 'Book Now' : 'Busy'}
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* Worker Detail Modal */}
       {selectedWorker && (
@@ -550,8 +571,8 @@ export const Discovery = () => {
           style={{
             position: 'fixed',
             inset: 0,
-            background: 'rgba(0,0,0,0.7)',
-            backdropFilter: 'blur(8px)',
+            background: 'rgba(32, 41, 35, 0.5)',
+            backdropFilter: 'blur(4px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -560,37 +581,46 @@ export const Discovery = () => {
           }}
         >
           <div
-            className="glass-panel"
             style={{
               maxWidth: '540px',
               width: '100%',
-              padding: '28px',
+              background: '#FFFFFF',
+              border: '1px solid #E7E8E2',
+              borderRadius: '16px',
+              padding: '32px',
               maxHeight: '90vh',
               overflowY: 'auto',
+              boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <h2 style={{ fontSize: '20px', fontWeight: '700' }}>{selectedWorker.userId?.name}</h2>
+                <h2 style={{ fontSize: '20px', fontWeight: '800', color: '#202923', margin: 0 }}>
+                  {selectedWorker.userId?.name}
+                </h2>
                 {selectedWorker.isVerified && (
-                  <span style={{ color: '#3b82f6', fontSize: '13px', fontWeight: '600' }}>✓ Verified</span>
+                  <span style={{ color: '#247A52', fontSize: '13px', fontWeight: '700', background: '#E8F2EA', padding: '2px 8px', borderRadius: '4px' }}>
+                    ✓ Verified
+                  </span>
                 )}
               </div>
-              <button onClick={() => setSelectedWorker(null)} style={{ color: '#9ca3af', fontSize: '20px' }}>
+              <button onClick={() => setSelectedWorker(null)} style={{ color: '#69736D', fontSize: '20px', cursor: 'pointer' }}>
                 ✕
               </button>
             </div>
 
-            <div style={{ fontSize: '13px', color: '#60a5fa', textTransform: 'capitalize', marginBottom: '12px' }}>
-              {selectedWorker.category.replace('_', ' ')} • ₹{selectedWorker.hourlyRate}/hour • {selectedWorker.locality}
+            <div style={{ fontSize: '14px', color: '#247A52', textTransform: 'capitalize', fontWeight: '600', marginBottom: '16px' }}>
+              {selectedWorker.category.replace('_', ' ')} • ₹{selectedWorker.hourlyRate}/hour • 📍 {selectedWorker.locality}
             </div>
 
-            <p style={{ fontSize: '14px', color: '#d1d5db', lineHeight: '1.5', marginBottom: '18px' }}>
+            <p style={{ fontSize: '14px', color: '#4B554F', lineHeight: '1.6', marginBottom: '20px' }}>
               {selectedWorker.bio}
             </p>
 
-            <div style={{ marginBottom: '18px' }}>
-              <h4 style={{ fontSize: '13px', color: '#9ca3af', marginBottom: '8px' }}>Specialized Skills:</h4>
+            <div style={{ marginBottom: '24px' }}>
+              <h4 style={{ fontSize: '13px', fontWeight: '700', color: '#202923', marginBottom: '8px', textTransform: 'uppercase' }}>
+                Specialized Trade Skills:
+              </h4>
               <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
                 {selectedWorker.skills?.map((s, idx) => (
                   <span
@@ -599,9 +629,10 @@ export const Discovery = () => {
                       fontSize: '12px',
                       padding: '4px 10px',
                       borderRadius: '6px',
-                      background: 'rgba(59, 130, 246, 0.15)',
-                      color: '#93c5fd',
-                      border: '1px solid rgba(59, 130, 246, 0.3)',
+                      background: '#E8F2EA',
+                      color: '#247A52',
+                      border: '1px solid #BCD9BF',
+                      fontWeight: '600',
                     }}
                   >
                     {s}
@@ -610,15 +641,18 @@ export const Discovery = () => {
               </div>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '20px' }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
               <button
                 type="button"
                 onClick={() => setSelectedWorker(null)}
                 style={{
-                  padding: '8px 16px',
+                  padding: '9px 18px',
                   borderRadius: '8px',
-                  background: 'rgba(255,255,255,0.06)',
-                  color: '#d1d5db',
+                  background: '#FAF9F6',
+                  border: '1px solid #E7E8E2',
+                  color: '#69736D',
+                  fontSize: '13px',
+                  fontWeight: '600',
                 }}
               >
                 Close
@@ -631,14 +665,15 @@ export const Discovery = () => {
                   openBookingModal(w);
                 }}
                 style={{
-                  padding: '8px 20px',
+                  padding: '9px 22px',
                   borderRadius: '8px',
-                  background: 'var(--primary)',
-                  color: '#fff',
-                  fontWeight: '600',
+                  background: '#247A52',
+                  color: '#FFFFFF',
+                  fontWeight: '700',
+                  fontSize: '13px',
                 }}
               >
-                Proceed to Book
+                Proceed to Book ➔
               </button>
             </div>
           </div>
@@ -651,8 +686,8 @@ export const Discovery = () => {
           style={{
             position: 'fixed',
             inset: 0,
-            background: 'rgba(0,0,0,0.7)',
-            backdropFilter: 'blur(8px)',
+            background: 'rgba(32, 41, 35, 0.5)',
+            backdropFilter: 'blur(4px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -661,23 +696,28 @@ export const Discovery = () => {
           }}
         >
           <div
-            className="glass-panel"
             style={{
-              maxWidth: '500px',
+              maxWidth: '520px',
               width: '100%',
-              padding: '28px',
+              background: '#FFFFFF',
+              border: '1px solid #E7E8E2',
+              borderRadius: '16px',
+              padding: '32px',
               maxHeight: '90vh',
               overflowY: 'auto',
+              boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
             }}
           >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
               <div>
-                <h2 style={{ fontSize: '18px', fontWeight: '700' }}>Request Booking</h2>
-                <div style={{ fontSize: '12px', color: '#9ca3af' }}>
+                <h2 style={{ fontSize: '20px', fontWeight: '800', color: '#202923', margin: 0 }}>
+                  Request Booking
+                </h2>
+                <div style={{ fontSize: '13px', color: '#69736D', marginTop: '2px' }}>
                   Booking {bookingWorker.userId?.name} ({bookingWorker.category.replace('_', ' ')})
                 </div>
               </div>
-              <button onClick={() => setBookingWorker(null)} style={{ color: '#9ca3af', fontSize: '20px' }}>
+              <button onClick={() => setBookingWorker(null)} style={{ color: '#69736D', fontSize: '20px', cursor: 'pointer' }}>
                 ✕
               </button>
             </div>
@@ -685,13 +725,13 @@ export const Discovery = () => {
             {bookingStatus.error && (
               <div
                 style={{
-                  padding: '10px',
+                  padding: '12px 14px',
                   borderRadius: '8px',
-                  background: 'rgba(239, 68, 68, 0.15)',
-                  border: '1px solid rgba(239, 68, 68, 0.3)',
-                  color: '#ef4444',
+                  background: '#FEE2E2',
+                  border: '1px solid #FECDD3',
+                  color: '#B91C1C',
                   fontSize: '13px',
-                  marginBottom: '14px',
+                  marginBottom: '16px',
                 }}
               >
                 {bookingStatus.error}
@@ -700,17 +740,19 @@ export const Discovery = () => {
 
             {bookingStatus.success ? (
               <div style={{ textAlign: 'center', padding: '24px 0' }}>
-                <div style={{ fontSize: '40px', marginBottom: '10px' }}>🎉</div>
-                <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#10b981' }}>Booking Requested!</h3>
-                <p style={{ fontSize: '13px', color: '#9ca3af', marginTop: '6px' }}>
+                <div style={{ fontSize: '42px', marginBottom: '10px' }}>🎉</div>
+                <h3 style={{ fontSize: '18px', fontWeight: '800', color: '#247A52' }}>
+                  Booking Request Sent!
+                </h3>
+                <p style={{ fontSize: '14px', color: '#69736D', marginTop: '6px' }}>
                   Redirecting to your bookings dashboard...
                 </p>
               </div>
             ) : (
-              <form onSubmit={submitBooking} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              <form onSubmit={submitBooking} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '12px', color: '#9ca3af', marginBottom: '4px' }}>
-                    Job Description & Issues
+                  <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#202923', marginBottom: '6px' }}>
+                    Job Description & Specific Requirements
                   </label>
                   <textarea
                     required
@@ -720,11 +762,11 @@ export const Discovery = () => {
                     onChange={(e) => setBookingForm({ ...bookingForm, jobDescription: e.target.value })}
                     style={{
                       width: '100%',
-                      padding: '10px',
+                      padding: '10px 14px',
                       borderRadius: '8px',
-                      background: 'rgba(0,0,0,0.3)',
-                      border: '1px solid rgba(255,255,255,0.1)',
-                      color: '#fff',
+                      background: '#FAF9F6',
+                      border: '1px solid #E7E8E2',
+                      color: '#202923',
                       fontSize: '13px',
                       outline: 'none',
                     }}
@@ -732,32 +774,32 @@ export const Discovery = () => {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '12px', color: '#9ca3af', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#202923', marginBottom: '6px' }}>
                     Service Locality / Address
                   </label>
                   <input
                     type="text"
                     required
-                    placeholder="Flat/House No., Street, Locality"
+                    placeholder="House/Door No., Street, Locality"
                     value={bookingForm.locality}
                     onChange={(e) => setBookingForm({ ...bookingForm, locality: e.target.value })}
                     style={{
                       width: '100%',
-                      padding: '9px 12px',
+                      padding: '10px 14px',
                       borderRadius: '8px',
-                      background: 'rgba(0,0,0,0.3)',
-                      border: '1px solid rgba(255,255,255,0.1)',
-                      color: '#fff',
+                      background: '#FAF9F6',
+                      border: '1px solid #E7E8E2',
+                      color: '#202923',
                       fontSize: '13px',
                       outline: 'none',
                     }}
                   />
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '12px', color: '#9ca3af', marginBottom: '4px' }}>
-                      Date
+                    <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#202923', marginBottom: '6px' }}>
+                      Scheduled Date
                     </label>
                     <input
                       type="date"
@@ -768,9 +810,9 @@ export const Discovery = () => {
                         width: '100%',
                         padding: '9px 12px',
                         borderRadius: '8px',
-                        background: 'rgba(0,0,0,0.3)',
-                        border: '1px solid rgba(255,255,255,0.1)',
-                        color: '#fff',
+                        background: '#FAF9F6',
+                        border: '1px solid #E7E8E2',
+                        color: '#202923',
                         fontSize: '13px',
                         outline: 'none',
                       }}
@@ -778,7 +820,7 @@ export const Discovery = () => {
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '12px', color: '#9ca3af', marginBottom: '4px' }}>
+                    <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#202923', marginBottom: '6px' }}>
                       Preferred Time
                     </label>
                     <select
@@ -788,9 +830,9 @@ export const Discovery = () => {
                         width: '100%',
                         padding: '9px 12px',
                         borderRadius: '8px',
-                        background: '#111827',
-                        border: '1px solid rgba(255,255,255,0.1)',
-                        color: '#fff',
+                        background: '#FAF9F6',
+                        border: '1px solid #E7E8E2',
+                        color: '#202923',
                         fontSize: '13px',
                         outline: 'none',
                       }}
@@ -806,9 +848,9 @@ export const Discovery = () => {
                 </div>
 
                 <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '4px' }}>
-                    <span style={{ color: '#9ca3af' }}>Estimated Duration:</span>
-                    <span style={{ fontWeight: '700' }}>{bookingForm.estimatedHours} Hours</span>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', marginBottom: '6px' }}>
+                    <span style={{ color: '#69736D', fontWeight: '600' }}>Estimated Duration:</span>
+                    <span style={{ fontWeight: '700', color: '#202923' }}>{bookingForm.estimatedHours} Hours</span>
                   </div>
                   <input
                     type="range"
@@ -816,47 +858,47 @@ export const Discovery = () => {
                     max="10"
                     value={bookingForm.estimatedHours}
                     onChange={(e) => setBookingForm({ ...bookingForm, estimatedHours: e.target.value })}
-                    style={{ width: '100%' }}
+                    style={{ width: '100%', accentColor: '#247A52' }}
                   />
                 </div>
 
                 {/* Live Cost Summary */}
                 <div
                   style={{
-                    padding: '12px',
-                    borderRadius: '8px',
-                    background: 'rgba(59, 130, 246, 0.1)',
-                    border: '1px solid rgba(59, 130, 246, 0.25)',
+                    padding: '14px',
+                    borderRadius: '10px',
+                    background: '#E8F2EA',
+                    border: '1px solid #BCD9BF',
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    marginTop: '6px',
                   }}
                 >
-                  <span style={{ fontSize: '13px', color: '#9ca3af' }}>
+                  <span style={{ fontSize: '13px', color: '#202923', fontWeight: '600' }}>
                     Estimated Total ({bookingForm.estimatedHours}h × ₹{bookingWorker.hourlyRate}):
                   </span>
-                  <span style={{ fontSize: '18px', fontWeight: '800', color: '#10b981' }}>
+                  <span style={{ fontSize: '20px', fontWeight: '800', color: '#247A52' }}>
                     ₹{bookingForm.estimatedHours * bookingWorker.hourlyRate}
                   </span>
                 </div>
 
-                <div style={{ fontSize: '11px', color: '#6b7280', marginTop: '2px' }}>
-                  ℹ️ Direct Payment: You arrange cash or UPI settlement directly with the worker upon job completion.
+                <div style={{ fontSize: '12px', color: '#69736D', lineHeight: '1.4' }}>
+                  🤝 <strong>Direct Payment:</strong> Settle payment directly with the worker via cash or UPI upon satisfied completion.
                 </div>
 
                 <button
                   type="submit"
                   disabled={bookingStatus.loading}
                   style={{
-                    marginTop: '10px',
+                    marginTop: '8px',
                     padding: '12px',
                     borderRadius: '8px',
-                    background: 'linear-gradient(135deg, var(--primary), var(--accent))',
-                    color: '#fff',
-                    fontWeight: '600',
+                    background: '#247A52',
+                    color: '#FFFFFF',
+                    fontWeight: '700',
                     fontSize: '14px',
                     cursor: 'pointer',
+                    boxShadow: '0 2px 8px rgba(36, 122, 82, 0.25)',
                   }}
                 >
                   {bookingStatus.loading ? 'Submitting...' : 'Confirm Booking Request'}

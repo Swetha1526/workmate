@@ -21,7 +21,7 @@ export const Navbar = () => {
         </Link>
       </div>
 
-      <nav style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+      <nav style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
         <Link to="/" className="nav-link">
           Home
         </Link>
@@ -47,7 +47,17 @@ export const Navbar = () => {
         )}
 
         {isAuthenticated && isAdmin && (
-          <Link to="/admin" className="nav-link" style={{ color: '#c084fc', fontWeight: '600' }}>
+          <Link
+            to="/admin"
+            className="nav-link"
+            style={{
+              color: '#247A52',
+              fontWeight: '600',
+              background: '#E8F2EA',
+              padding: '6px 12px',
+              borderRadius: '6px',
+            }}
+          >
             🛡️ Admin Panel
           </Link>
         )}
@@ -55,7 +65,7 @@ export const Navbar = () => {
 
       <div className="nav-actions">
         {isAuthenticated ? (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div
               style={{
                 display: 'flex',
@@ -63,9 +73,10 @@ export const Navbar = () => {
                 gap: '8px',
                 padding: '4px 12px',
                 borderRadius: '9999px',
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
+                background: '#F6F5F0',
+                border: '1px solid #E7E8E2',
                 fontSize: '13px',
+                color: '#202923',
               }}
             >
               <span
@@ -73,8 +84,8 @@ export const Navbar = () => {
                   width: '8px',
                   height: '8px',
                   borderRadius: '50%',
-                  background: isConnected ? '#10b981' : '#f59e0b',
-                  boxShadow: isConnected ? '0 0 8px #10b981' : 'none',
+                  background: isConnected ? '#247A52' : '#B45309',
+                  boxShadow: isConnected ? '0 0 6px rgba(36, 122, 82, 0.4)' : 'none',
                 }}
                 title={isConnected ? 'Real-time Socket Connected' : 'Socket Reconnecting'}
               ></span>
@@ -82,22 +93,23 @@ export const Navbar = () => {
               <span
                 style={{
                   fontSize: '11px',
-                  padding: '2px 6px',
+                  padding: '2px 7px',
                   borderRadius: '4px',
                   background:
                     user.role === 'admin'
-                      ? 'rgba(168, 85, 247, 0.2)'
+                      ? '#EDE9FE'
                       : user.role === 'worker'
-                      ? 'rgba(59, 130, 246, 0.2)'
-                      : 'rgba(16, 185, 129, 0.2)',
+                      ? '#E8F2EA'
+                      : '#E0E7FF',
                   color:
                     user.role === 'admin'
-                      ? '#c084fc'
+                      ? '#6D28D9'
                       : user.role === 'worker'
-                      ? '#60a5fa'
-                      : '#34d399',
+                      ? '#247A52'
+                      : '#3730A3',
                   textTransform: 'uppercase',
                   fontWeight: '700',
+                  letterSpacing: '0.4px',
                 }}
               >
                 {user.role}
@@ -108,12 +120,13 @@ export const Navbar = () => {
               onClick={handleLogout}
               style={{
                 padding: '6px 14px',
-                borderRadius: '8px',
-                background: 'rgba(239, 68, 68, 0.15)',
-                color: '#ef4444',
-                border: '1px solid rgba(239, 68, 68, 0.3)',
+                borderRadius: '6px',
+                background: '#FFF1F2',
+                color: '#BE123C',
+                border: '1px solid #FECDD3',
                 fontSize: '13px',
                 fontWeight: '600',
+                transition: 'all 0.15s ease',
               }}
             >
               Logout
@@ -124,13 +137,14 @@ export const Navbar = () => {
             <Link
               to="/login"
               style={{
-                padding: '7px 16px',
-                borderRadius: '8px',
-                background: 'rgba(255, 255, 255, 0.06)',
-                color: '#fff',
+                padding: '8px 16px',
+                borderRadius: '6px',
+                background: '#FFFFFF',
+                color: '#202923',
                 fontSize: '13px',
                 fontWeight: '600',
-                border: '1px solid rgba(255, 255, 255, 0.12)',
+                border: '1px solid #E7E8E2',
+                transition: 'all 0.15s ease',
               }}
             >
               Log In
@@ -138,13 +152,14 @@ export const Navbar = () => {
             <Link
               to="/register"
               style={{
-                padding: '7px 16px',
-                borderRadius: '8px',
-                background: 'linear-gradient(135deg, var(--primary), var(--accent))',
-                color: '#fff',
+                padding: '8px 18px',
+                borderRadius: '6px',
+                background: '#247A52',
+                color: '#FFFFFF',
                 fontSize: '13px',
                 fontWeight: '600',
-                boxShadow: '0 4px 12px var(--primary-glow)',
+                boxShadow: '0 2px 6px rgba(36, 122, 82, 0.25)',
+                transition: 'all 0.15s ease',
               }}
             >
               Sign Up

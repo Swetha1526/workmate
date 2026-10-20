@@ -6,7 +6,8 @@ export const ProtectedRoute = ({ children, allowedRoles }) => {
 
   if (loading) {
     return (
-      <div style={{ padding: '60px', textAlign: 'center', color: '#9ca3af' }}>
+      <div style={{ padding: '80px 20px', textAlign: 'center', color: 'var(--text-slate)' }}>
+        <div style={{ fontSize: '24px', marginBottom: '8px' }}>⏳</div>
         Verifying authorization...
       </div>
     );

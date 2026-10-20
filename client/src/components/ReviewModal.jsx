@@ -40,8 +40,9 @@ export const ReviewModal = ({ booking, onClose, onSuccess }) => {
       style={{
         position: 'fixed',
         inset: 0,
-        background: 'rgba(0,0,0,0.7)',
-        backdropFilter: 'blur(8px)',
+        background: 'rgba(32, 41, 35, 0.45)',
+        backdropFilter: 'blur(6px)',
+        WebkitBackdropFilter: 'blur(6px)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -49,15 +50,38 @@ export const ReviewModal = ({ booking, onClose, onSuccess }) => {
         padding: '16px',
       }}
     >
-      <div className="glass-panel" style={{ maxWidth: '460px', width: '100%', padding: '28px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
+      <div
+        className="card-surface"
+        style={{
+          maxWidth: '480px',
+          width: '100%',
+          padding: '30px',
+          borderRadius: 'var(--radius-lg)',
+          boxShadow: 'var(--shadow-modal)',
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
           <div>
-            <h2 style={{ fontSize: '18px', fontWeight: '700' }}>Review Completed Service</h2>
-            <div style={{ fontSize: '12px', color: '#9ca3af' }}>
-              Worker: {booking.workerUserId?.name} ({booking.category.replace('_', ' ')})
+            <h2 style={{ fontSize: '20px', fontWeight: '800', color: 'var(--text-charcoal)', letterSpacing: '-0.4px', marginBottom: '4px' }}>
+              Review Completed Service
+            </h2>
+            <div style={{ fontSize: '13px', color: 'var(--text-slate)' }}>
+              Worker: <strong style={{ color: 'var(--text-charcoal)' }}>{booking.workerUserId?.name}</strong> (
+              {booking.category.replace('_', ' ')})
             </div>
           </div>
-          <button onClick={onClose} style={{ color: '#9ca3af', fontSize: '20px', cursor: 'pointer' }}>
+          <button
+            onClick={onClose}
+            aria-label="Close review dialog"
+            style={{
+              color: 'var(--text-slate)',
+              fontSize: '18px',
+              cursor: 'pointer',
+              padding: '4px 8px',
+              borderRadius: 'var(--radius-sm)',
+              background: 'transparent',
+            }}
+          >
             ✕
           </button>
         </div>
@@ -65,11 +89,11 @@ export const ReviewModal = ({ booking, onClose, onSuccess }) => {
         {error && (
           <div
             style={{
-              padding: '10px',
-              borderRadius: '8px',
-              background: 'rgba(239, 68, 68, 0.15)',
-              border: '1px solid rgba(239, 68, 68, 0.3)',
-              color: '#ef4444',
+              padding: '10px 14px',
+              borderRadius: 'var(--radius-sm)',
+              background: 'var(--status-danger-bg)',
+              border: '1px solid #FECACA',
+              color: 'var(--status-danger)',
               fontSize: '13px',
               marginBottom: '16px',
             }}
@@ -78,13 +102,13 @@ export const ReviewModal = ({ booking, onClose, onSuccess }) => {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
           {/* Star Rating Picker */}
           <div>
-            <label style={{ display: 'block', fontSize: '13px', color: '#9ca3af', marginBottom: '8px' }}>
-              Overall Rating:
+            <label className="form-label">
+              Overall Rating ({rating} of 5 stars):
             </label>
-            <div style={{ display: 'flex', gap: '10px' }}>
+            <div style={{ display: 'flex', gap: '8px' }}>
               {[1, 2, 3, 4, 5].map((star) => (
                 <button
                   key={star}
@@ -94,7 +118,8 @@ export const ReviewModal = ({ booking, onClose, onSuccess }) => {
                     fontSize: '28px',
                     cursor: 'pointer',
                     filter: star <= rating ? 'none' : 'grayscale(100%) opacity(30%)',
-                    transition: 'all 0.15s ease',
+                    transition: 'transform 0.15s ease, filter 0.15s ease',
+                    transform: star <= rating ? 'scale(1.05)' : 'scale(0.95)',
                   }}
                 >
                   ⭐
@@ -104,54 +129,32 @@ export const ReviewModal = ({ booking, onClose, onSuccess }) => {
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '13px', color: '#9ca3af', marginBottom: '6px' }}>
-              Your Feedback & Experience:
+            <label className="form-label">
+              Your Feedback & Experience
             </label>
             <textarea
               required
               rows={4}
-              placeholder="How was the worker's punctuality, skill level, and professionalism?"
+              className="form-input"
+              placeholder="How was the worker's punctuality, trade skill, communication, and professionalism?"
               value={comment}
               onChange={(e) => setComment(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '10px 14px',
-                borderRadius: '8px',
-                background: 'rgba(0,0,0,0.3)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                color: '#fff',
-                fontSize: '13px',
-                outline: 'none',
-              }}
+              style={{ resize: 'vertical' }}
             />
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '8px' }}>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '6px' }}>
             <button
               type="button"
               onClick={onClose}
-              style={{
-                padding: '9px 16px',
-                borderRadius: '8px',
-                background: 'rgba(255,255,255,0.06)',
-                color: '#d1d5db',
-                fontSize: '13px',
-              }}
+              className="btn-secondary"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={submitting}
-              style={{
-                padding: '9px 20px',
-                borderRadius: '8px',
-                background: 'linear-gradient(135deg, #f59e0b, #d97706)',
-                color: '#fff',
-                fontWeight: '600',
-                fontSize: '13px',
-                cursor: 'pointer',
-              }}
+              className="btn-primary"
             >
               {submitting ? 'Publishing...' : 'Submit Review'}
             </button>

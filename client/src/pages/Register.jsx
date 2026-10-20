@@ -50,50 +50,83 @@ export const Register = () => {
   };
 
   return (
-    <div style={{ maxWidth: '520px', margin: '40px auto', padding: '0 16px' }}>
-      <div className="glass-panel" style={{ padding: '32px' }}>
-        <div style={{ textAlign: 'center', marginBottom: '24px' }}>
-          <div style={{ fontSize: '36px', marginBottom: '8px' }}>🛠️</div>
-          <h2 style={{ fontSize: '24px', fontWeight: '700' }}>Join WorkMate</h2>
-          <p style={{ fontSize: '14px', color: '#9ca3af' }}>
-            Choose your account role and get started in seconds
+    <div style={{ maxWidth: '540px', margin: '40px auto', padding: '0 16px' }}>
+      <div
+        style={{
+          background: '#FFFFFF',
+          border: '1px solid #E7E8E2',
+          borderRadius: '16px',
+          boxShadow: '0 4px 20px rgba(32, 41, 35, 0.06)',
+          padding: '36px',
+        }}
+      >
+        <div style={{ textAlign: 'center', marginBottom: '28px' }}>
+          <div
+            style={{
+              width: '48px',
+              height: '48px',
+              borderRadius: '12px',
+              background: '#E8F2EA',
+              color: '#247A52',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '22px',
+              margin: '0 auto 12px',
+            }}
+          >
+            🛠️
+          </div>
+          <h2 style={{ fontSize: '24px', fontWeight: '800', color: '#202923', letterSpacing: '-0.4px', marginBottom: '4px' }}>
+            Join WorkMate
+          </h2>
+          <p style={{ fontSize: '14px', color: '#69736D' }}>
+            Choose your account role to get started
           </p>
         </div>
 
-        {/* Role Selector */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '20px' }}>
+        {/* Role Selector Cards */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '20px' }}>
           <button
             type="button"
             onClick={() => setRole('customer')}
             style={{
-              padding: '14px 10px',
+              padding: '16px 12px',
               borderRadius: '10px',
               textAlign: 'center',
-              border: role === 'customer' ? '2px solid #3b82f6' : '1px solid rgba(255, 255, 255, 0.1)',
-              background: role === 'customer' ? 'rgba(59, 130, 246, 0.15)' : 'rgba(0, 0, 0, 0.25)',
-              color: role === 'customer' ? '#fff' : '#9ca3af',
+              border: role === 'customer' ? '2px solid #247A52' : '1px solid #E7E8E2',
+              background: role === 'customer' ? '#E8F2EA' : '#FAF9F6',
+              color: role === 'customer' ? '#202923' : '#69736D',
+              cursor: 'pointer',
+              transition: 'all 0.15s ease',
             }}
           >
-            <div style={{ fontSize: '20px', marginBottom: '4px' }}>🏡</div>
-            <div style={{ fontSize: '14px', fontWeight: '700' }}>Customer</div>
-            <div style={{ fontSize: '11px', color: '#9ca3af' }}>Hire trade workers</div>
+            <div style={{ fontSize: '22px', marginBottom: '4px' }}>🏡</div>
+            <div style={{ fontSize: '14px', fontWeight: '700', color: role === 'customer' ? '#247A52' : '#202923' }}>
+              Customer
+            </div>
+            <div style={{ fontSize: '11px', color: '#69736D' }}>Hire trade workers</div>
           </button>
 
           <button
             type="button"
             onClick={() => setRole('worker')}
             style={{
-              padding: '14px 10px',
+              padding: '16px 12px',
               borderRadius: '10px',
               textAlign: 'center',
-              border: role === 'worker' ? '2px solid #8b5cf6' : '1px solid rgba(255, 255, 255, 0.1)',
-              background: role === 'worker' ? 'rgba(139, 92, 246, 0.15)' : 'rgba(0, 0, 0, 0.25)',
-              color: role === 'worker' ? '#fff' : '#9ca3af',
+              border: role === 'worker' ? '2px solid #247A52' : '1px solid #E7E8E2',
+              background: role === 'worker' ? '#E8F2EA' : '#FAF9F6',
+              color: role === 'worker' ? '#202923' : '#69736D',
+              cursor: 'pointer',
+              transition: 'all 0.15s ease',
             }}
           >
-            <div style={{ fontSize: '20px', marginBottom: '4px' }}>🔧</div>
-            <div style={{ fontSize: '14px', fontWeight: '700' }}>Trade Worker</div>
-            <div style={{ fontSize: '11px', color: '#9ca3af' }}>Find hourly jobs</div>
+            <div style={{ fontSize: '22px', marginBottom: '4px' }}>🔧</div>
+            <div style={{ fontSize: '14px', fontWeight: '700', color: role === 'worker' ? '#247A52' : '#202923' }}>
+              Trade Worker
+            </div>
+            <div style={{ fontSize: '11px', color: '#69736D' }}>Find hourly jobs</div>
           </button>
         </div>
 
@@ -102,16 +135,19 @@ export const Register = () => {
           <div
             style={{
               display: 'flex',
-              gap: '12px',
-              padding: '10px 14px',
-              background: 'rgba(0, 0, 0, 0.2)',
+              gap: '16px',
+              padding: '12px 16px',
+              background: '#FAF9F6',
               borderRadius: '8px',
+              border: '1px solid #E7E8E2',
               marginBottom: '20px',
               alignItems: 'center',
             }}
           >
-            <span style={{ fontSize: '12px', color: '#9ca3af', fontWeight: '600' }}>Account Type:</span>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', cursor: 'pointer' }}>
+            <span style={{ fontSize: '12px', color: '#69736D', fontWeight: '700', textTransform: 'uppercase' }}>
+              Type:
+            </span>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: '#202923', cursor: 'pointer', fontWeight: '500' }}>
               <input
                 type="radio"
                 name="customerType"
@@ -120,7 +156,7 @@ export const Register = () => {
               />
               Individual / Homeowner
             </label>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', cursor: 'pointer' }}>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: '#202923', cursor: 'pointer', fontWeight: '500' }}>
               <input
                 type="radio"
                 name="customerType"
@@ -135,22 +171,22 @@ export const Register = () => {
         {error && (
           <div
             style={{
-              padding: '12px',
+              padding: '12px 14px',
               borderRadius: '8px',
-              background: 'rgba(239, 68, 68, 0.15)',
-              border: '1px solid rgba(239, 68, 68, 0.3)',
-              color: '#ef4444',
+              background: '#FEE2E2',
+              border: '1px solid #FECDD3',
+              color: '#B91C1C',
               fontSize: '13px',
-              marginBottom: '18px',
+              marginBottom: '20px',
             }}
           >
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div>
-            <label style={{ display: 'block', fontSize: '13px', color: '#9ca3af', marginBottom: '4px' }}>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#202923', marginBottom: '6px' }}>
               Full Name
             </label>
             <input
@@ -163,9 +199,9 @@ export const Register = () => {
                 width: '100%',
                 padding: '10px 14px',
                 borderRadius: '8px',
-                background: 'rgba(0, 0, 0, 0.25)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                color: '#fff',
+                background: '#FFFFFF',
+                border: '1px solid #E7E8E2',
+                color: '#202923',
                 fontSize: '14px',
                 outline: 'none',
               }}
@@ -173,7 +209,7 @@ export const Register = () => {
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '13px', color: '#9ca3af', marginBottom: '4px' }}>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#202923', marginBottom: '6px' }}>
               Email Address
             </label>
             <input
@@ -186,9 +222,9 @@ export const Register = () => {
                 width: '100%',
                 padding: '10px 14px',
                 borderRadius: '8px',
-                background: 'rgba(0, 0, 0, 0.25)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                color: '#fff',
+                background: '#FFFFFF',
+                border: '1px solid #E7E8E2',
+                color: '#202923',
                 fontSize: '14px',
                 outline: 'none',
               }}
@@ -196,7 +232,7 @@ export const Register = () => {
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '13px', color: '#9ca3af', marginBottom: '4px' }}>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#202923', marginBottom: '6px' }}>
               Phone Number
             </label>
             <input
@@ -209,9 +245,9 @@ export const Register = () => {
                 width: '100%',
                 padding: '10px 14px',
                 borderRadius: '8px',
-                background: 'rgba(0, 0, 0, 0.25)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                color: '#fff',
+                background: '#FFFFFF',
+                border: '1px solid #E7E8E2',
+                color: '#202923',
                 fontSize: '14px',
                 outline: 'none',
               }}
@@ -219,8 +255,8 @@ export const Register = () => {
           </div>
 
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-              <label style={{ fontSize: '13px', color: '#9ca3af' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+              <label style={{ fontSize: '13px', fontWeight: '600', color: '#202923' }}>
                 Create Password (min. 6 characters)
               </label>
               <button
@@ -228,13 +264,11 @@ export const Register = () => {
                 onClick={() => setShowPassword(!showPassword)}
                 style={{
                   fontSize: '12px',
-                  color: '#60a5fa',
+                  fontWeight: '600',
+                  color: '#247A52',
                   background: 'none',
                   border: 'none',
                   cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '4px',
                 }}
               >
                 {showPassword ? 'Hide Password' : 'Show Password'}
@@ -250,11 +284,11 @@ export const Register = () => {
                 placeholder="••••••••"
                 style={{
                   width: '100%',
-                  padding: '10px 40px 10px 14px',
+                  padding: '10px 42px 10px 14px',
                   borderRadius: '8px',
-                  background: 'rgba(0, 0, 0, 0.25)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  color: '#fff',
+                  background: '#FFFFFF',
+                  border: '1px solid #E7E8E2',
+                  color: '#202923',
                   fontSize: '14px',
                   outline: 'none',
                 }}
@@ -269,8 +303,8 @@ export const Register = () => {
                   transform: 'translateY(-50%)',
                   background: 'none',
                   border: 'none',
-                  color: '#9ca3af',
-                  fontSize: '14px',
+                  color: '#69736D',
+                  fontSize: '15px',
                   cursor: 'pointer',
                   padding: '2px',
                 }}
@@ -288,21 +322,23 @@ export const Register = () => {
               marginTop: '10px',
               padding: '12px',
               borderRadius: '8px',
-              background: 'linear-gradient(135deg, var(--primary), var(--accent))',
-              color: '#fff',
-              fontWeight: '600',
+              background: '#247A52',
+              color: '#FFFFFF',
+              fontWeight: '700',
               fontSize: '14px',
+              cursor: submitting ? 'not-allowed' : 'pointer',
               opacity: submitting ? 0.7 : 1,
-              boxShadow: '0 4px 14px var(--primary-glow)',
+              boxShadow: '0 2px 8px rgba(36, 122, 82, 0.25)',
+              transition: 'background 0.15s ease',
             }}
           >
-            {submitting ? 'Creating Account...' : `Register as ${role === 'worker' ? 'Worker' : 'Customer'}`}
+            {submitting ? 'Creating Account...' : `Register as ${role === 'worker' ? 'Trade Worker' : 'Customer'}`}
           </button>
         </form>
 
-        <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '13px', color: '#9ca3af' }}>
+        <div style={{ textAlign: 'center', marginTop: '24px', fontSize: '13px', color: '#69736D' }}>
           Already have an account?{' '}
-          <Link to="/login" style={{ color: '#60a5fa', fontWeight: '600' }}>
+          <Link to="/login" style={{ color: '#247A52', fontWeight: '700' }}>
             Log in
           </Link>
         </div>
