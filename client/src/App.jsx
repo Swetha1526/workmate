@@ -116,8 +116,10 @@ function App() {
                 <div className="metric-value">v24.19.0 (Verified)</div>
               </div>
               <div className="monitor-metric">
-                <div className="metric-label">Database Target</div>
-                <div className="metric-value">MongoDB Atlas (M0)</div>
+                <div className="metric-label">Database Status</div>
+                <div className="metric-value" style={{ color: apiData?.database === 'connected' ? '#10b981' : '#f59e0b' }}>
+                  {apiData?.database === 'connected' ? `Atlas (${apiData.databaseName})` : 'Connecting...'}
+                </div>
               </div>
             </div>
 

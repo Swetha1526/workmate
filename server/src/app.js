@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import mongoose from 'mongoose';
 
 export const createApp = () => {
   const app = express();
@@ -28,9 +29,12 @@ export const createApp = () => {
   });
 
   app.get('/api/health', (req, res) => {
+    const isDbConnected = mongoose.connection.readyState === 1;
     res.json({
       status: 'ok',
       service: 'workmate-server',
+      database: isDbConnected ? 'connected' : 'disconnected',
+      databaseName: isDbConnected ? mongoose.connection.name : null,
       timestamp: new Date().toISOString(),
       uptime: `${Math.floor(process.uptime())}s`,
     });
