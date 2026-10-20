@@ -1,33 +1,8 @@
-import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../services/api.js';
 import { CATEGORIES } from './Discovery.jsx';
 
 export const Home = () => {
   const navigate = useNavigate();
-
-  const [apiStatus, setApiStatus] = useState('checking');
-  const [apiData, setApiData] = useState(null);
-  const [pingLatency, setPingLatency] = useState(null);
-
-  const checkBackendHealth = async () => {
-    setApiStatus('checking');
-    const startTime = performance.now();
-    try {
-      const res = await api.get('/health');
-      const latency = Math.round(performance.now() - startTime);
-      setApiData(res.data);
-      setPingLatency(latency);
-      setApiStatus('online');
-    } catch {
-      setApiStatus('offline');
-      setApiData(null);
-    }
-  };
-
-  useEffect(() => {
-    checkBackendHealth();
-  }, []);
 
   const handleCategoryClick = (catId) => {
     navigate(`/discovery?category=${catId}`);
@@ -38,7 +13,7 @@ export const Home = () => {
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-tagline">
-          <span>⚡ MERN Stack + Socket.IO On-Demand Marketplace</span>
+          <span>⚡ On-Demand Trade Worker Marketplace</span>
         </div>
         <h1 className="hero-headline">
           Hire Verified Hourly Trade Workers in Your Locality
@@ -47,39 +22,39 @@ export const Home = () => {
           Directly connect with certified plumbers, electricians, carpenters, AC mechanics, welders, and daily-wage trade professionals.
         </p>
 
-        {/* Live System Diagnostics Monitor */}
-        <div className="glass-panel monitor-card animate-fade-in" style={{ margin: '0 auto 48px' }}>
-          <div className="monitor-header">
-            <div className="monitor-title">
-              <span>🖥️ Platform & Cloud Database Diagnostics</span>
-            </div>
-            <button onClick={checkBackendHealth} className="ping-btn" type="button">
-              ↻ Re-check Status
-            </button>
-          </div>
-
-          <div className="monitor-grid">
-            <div className="monitor-metric">
-              <div className="metric-label">Frontend (Vite + React 19)</div>
-              <div className="metric-value" style={{ color: '#10b981' }}>Active (Port 5173)</div>
-            </div>
-            <div className="monitor-metric">
-              <div className="metric-label">Backend (Express + Sockets)</div>
-              <div className="metric-value" style={{ color: apiStatus === 'online' ? '#10b981' : '#f59e0b' }}>
-                {apiStatus === 'online' ? `Online (${pingLatency}ms)` : 'Connecting...'}
-              </div>
-            </div>
-            <div className="monitor-metric">
-              <div className="metric-label">Database Status</div>
-              <div className="metric-value" style={{ color: apiData?.database === 'connected' ? '#10b981' : '#f59e0b' }}>
-                {apiData?.database === 'connected' ? `Atlas (${apiData.databaseName})` : 'Connecting...'}
-              </div>
-            </div>
-            <div className="monitor-metric">
-              <div className="metric-label">Platform Security</div>
-              <div className="metric-value" style={{ color: '#60a5fa' }}>JWT + bcryptjs</div>
-            </div>
-          </div>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '14px', marginBottom: '48px', flexWrap: 'wrap' }}>
+          <button
+            type="button"
+            onClick={() => navigate('/discovery')}
+            style={{
+              padding: '12px 28px',
+              borderRadius: '10px',
+              background: 'linear-gradient(135deg, var(--primary), var(--accent))',
+              color: '#fff',
+              fontSize: '15px',
+              fontWeight: '700',
+              cursor: 'pointer',
+              boxShadow: '0 4px 16px var(--primary-glow)',
+            }}
+          >
+            Explore Available Workers ➔
+          </button>
+          <button
+            type="button"
+            onClick={() => navigate('/register')}
+            style={{
+              padding: '12px 24px',
+              borderRadius: '10px',
+              background: 'rgba(255, 255, 255, 0.06)',
+              color: '#fff',
+              fontSize: '15px',
+              fontWeight: '600',
+              border: '1px solid rgba(255, 255, 255, 0.12)',
+              cursor: 'pointer',
+            }}
+          >
+            Join as a Trade Worker
+          </button>
         </div>
       </section>
 

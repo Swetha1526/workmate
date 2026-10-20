@@ -19,7 +19,6 @@ export const Navbar = () => {
           <div className="brand-icon">🛠️</div>
           <span className="brand-title">WorkMate</span>
         </Link>
-        <span className="brand-badge">GUVI Capstone</span>
       </div>
 
       <nav style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>

@@ -78,7 +78,7 @@ function App() {
             <footer className="footer">
               <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
                 <div>
-                  <strong>WorkMate</strong> — On-Demand Hourly Worker Hiring Marketplace (GUVI MERN Capstone)
+                  <strong>WorkMate</strong> — On-Demand Hourly Worker Hiring Marketplace
                 </div>
                 <div style={{ color: '#6b7280', fontSize: '12px' }}>
                   Node.js • Express • MongoDB Atlas • React 19 • Vite • Socket.IO • JWT

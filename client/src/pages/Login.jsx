@@ -214,7 +214,7 @@ export const Login = () => {
         {/* Quick Fill Test Credentials */}
         <div style={{ marginTop: '24px', paddingTop: '18px', borderTop: '1px solid var(--border-color)' }}>
           <div style={{ fontSize: '11px', color: '#6b7280', textTransform: 'uppercase', marginBottom: '10px' }}>
-            ⚡ Quick-Fill Demo Accounts (GUVI Evaluator Convenience)
+            ⚡ Quick-Fill Demo Accounts (One-Click Testing)
           </div>
           <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
             <button
