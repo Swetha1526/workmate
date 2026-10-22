@@ -1,11 +1,7 @@
 import { Review } from '../models/Review.js';
 import { Booking } from '../models/Booking.js';
 
-/**
- * @desc    Submit a review for a completed booking
- * @route   POST /api/reviews
- * @access  Private (Customer only)
- */
+// submit a review for a completed job
 export const createReview = async (req, res) => {
   try {
     const { bookingId, rating, comment } = req.body;
@@ -83,11 +79,7 @@ export const createReview = async (req, res) => {
   }
 };
 
-/**
- * @desc    Get all reviews for a worker
- * @route   GET /api/reviews/worker/:workerId
- * @access  Public
- */
+// get all reviews for a worker
 export const getWorkerReviews = async (req, res) => {
   try {
     const { workerId } = req.params;
@@ -120,11 +112,7 @@ export const getWorkerReviews = async (req, res) => {
   }
 };
 
-/**
- * @desc    Check if a booking has already been reviewed
- * @route   GET /api/reviews/check/:bookingId
- * @access  Private
- */
+// check whether user already left a review for this booking
 export const checkReviewEligibility = async (req, res) => {
   try {
     const { bookingId } = req.params;

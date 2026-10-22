@@ -3,11 +3,7 @@ import { WorkerProfile } from '../models/WorkerProfile.js';
 import { Booking } from '../models/Booking.js';
 import { Review } from '../models/Review.js';
 
-/**
- * @desc    Get real platform metrics from MongoDB
- * @route   GET /api/admin/metrics
- * @access  Private (Admin only)
- */
+// aggregate platform metrics for admin dashboard
 export const getPlatformMetrics = async (req, res) => {
   try {
     const [
@@ -92,11 +88,7 @@ export const getPlatformMetrics = async (req, res) => {
   }
 };
 
-/**
- * @desc    Get paginated user list
- * @route   GET /api/admin/users
- * @access  Private (Admin only)
- */
+// list users with role and search filters
 export const getAdminUsers = async (req, res) => {
   try {
     const { role, isActive, search, page = 1, limit = 15 } = req.query;
@@ -139,11 +131,7 @@ export const getAdminUsers = async (req, res) => {
   }
 };
 
-/**
- * @desc    Suspend or activate a user account
- * @route   PATCH /api/admin/users/:id/status
- * @access  Private (Admin only)
- */
+// toggle active/suspended state for user account
 export const toggleUserStatus = async (req, res) => {
   try {
     const { isActive } = req.body;
@@ -182,11 +170,7 @@ export const toggleUserStatus = async (req, res) => {
   }
 };
 
-/**
- * @desc    Get all worker profiles with user details for admin verification
- * @route   GET /api/admin/workers
- * @access  Private (Admin only)
- */
+// list worker profiles for verification review
 export const getAdminWorkers = async (req, res) => {
   try {
     const { isVerified, category } = req.query;

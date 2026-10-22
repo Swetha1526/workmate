@@ -1,187 +1,73 @@
 import { User } from '../models/User.js';
-import { WorkerProfile, WORKER_CATEGORIES } from '../models/WorkerProfile.js';
+import { WorkerProfile } from '../models/WorkerProfile.js';
 
-const DEMO_WORKERS = [
+const INITIAL_WORKERS = [
   {
-    name: 'Karthik Raja (Demo)',
-    email: 'karthik.plumber.demo@workmate.local',
-    phone: '+91 98401 11223',
+    name: 'Ramesh Plumber',
+    email: 'plumber@workmate.local',
+    phone: '+91 98402 22334',
     category: 'plumbers',
-    skills: ['Pipe Fitting', 'Leak Detection', 'Bathroom Sanitary', 'Water Heater Install'],
-    experienceYears: 7,
-    bio: '[DEMO PROFILE] Certified master plumber specializing in residential and commercial plumbing, emergency leak repairs, and overhead tank setups.',
+    skills: ['Pipe Fitting', 'Leak Detection', 'Bathroom Sanitary', 'Water Heater Install', 'Drain Cleaning'],
+    experienceYears: 8,
+    bio: 'Licensed Master Plumber with 8+ years experience specializing in residential leak repairs, sanitary fixtures, and piping.',
     locality: 'T. Nagar, Chennai',
     hourlyRate: 350,
     isAvailable: true,
     isVerified: true,
-    averageRating: 4.8,
-    reviewCount: 24,
-    completedJobs: 38,
-  },
-  {
-    name: 'Suresh Kumar (Demo)',
-    email: 'suresh.electrician.demo@workmate.local',
-    phone: '+91 98402 22334',
-    category: 'electricians',
-    skills: ['MCB Wiring', 'Inverter Setup', 'LED Lighting', 'Short Circuit Troubleshooting'],
-    experienceYears: 9,
-    bio: '[DEMO PROFILE] Licensed wireman with expertise in full apartment rewiring, 3-phase power, switchboard repairs, and UPS installations.',
-    locality: 'Velachery, Chennai',
-    hourlyRate: 400,
-    isAvailable: true,
-    isVerified: true,
     averageRating: 4.9,
-    reviewCount: 31,
-    completedJobs: 45,
-  },
-  {
-    name: 'Muthu Vel (Demo)',
-    email: 'muthu.carpenter.demo@workmate.local',
-    phone: '+91 98403 33445',
-    category: 'carpenters',
-    skills: ['Teak Wood Work', 'Modular Kitchen Repair', 'Door Lock Installation', 'Furniture Assembly'],
-    experienceYears: 12,
-    bio: '[DEMO PROFILE] Veteran carpenter providing bespoke woodwork repairs, wardrobe alignments, window fittings, and hardware restoration.',
-    locality: 'Adyar, Chennai',
-    hourlyRate: 450,
-    isAvailable: true,
-    isVerified: true,
-    averageRating: 4.7,
-    reviewCount: 19,
-    completedJobs: 29,
-  },
-  {
-    name: 'Faizal Ahmed (Demo)',
-    email: 'faizal.ac.demo@workmate.local',
-    phone: '+91 98404 44556',
-    category: 'ac_mechanics',
-    skills: ['Split AC Servicing', 'Gas Leak & Charging', 'Compressor Replacement', 'Duct Cleaning'],
-    experienceYears: 6,
-    bio: '[DEMO PROFILE] HVAC specialist handling Daikin, Voltas, and LG inverter air conditioner deep jet servicing and seasonal overhaul.',
-    locality: 'Anna Nagar, Chennai',
-    hourlyRate: 500,
-    isAvailable: true,
-    isVerified: true,
-    averageRating: 4.9,
-    reviewCount: 42,
-    completedJobs: 56,
-  },
-  {
-    name: 'Ravi Shankar (Demo)',
-    email: 'ravi.welder.demo@workmate.local',
-    phone: '+91 98405 55667',
-    category: 'welders',
-    skills: ['Arc Welding', 'Iron Gate Repairs', 'Balcony Safety Grills', 'Stainless Steel Railings'],
-    experienceYears: 10,
-    bio: '[DEMO PROFILE] Structural and ARC welder equipped with portable welding kit for on-site gate hinges, window safety grills, and fabrication.',
-    locality: 'Guindy, Chennai',
-    hourlyRate: 400,
-    isAvailable: true,
-    isVerified: true,
-    averageRating: 4.6,
-    reviewCount: 15,
-    completedJobs: 22,
-  },
-  {
-    name: 'Anand Pandian (Demo)',
-    email: 'anand.fitter.demo@workmate.local',
-    phone: '+91 98406 66778',
-    category: 'fitters',
-    skills: ['Industrial Pump Assembly', 'Conveyor Alignment', 'Pneumatics', 'Preventive Maintenance'],
-    experienceYears: 8,
-    bio: '[DEMO PROFILE] Mechanical plant fitter specialized in heavy machinery alignment, pneumatic tools, motor mounts, and manufacturing shopfloor repairs.',
-    locality: 'Ambattur, Chennai',
-    hourlyRate: 450,
-    isAvailable: true,
-    isVerified: true,
-    averageRating: 4.8,
-    reviewCount: 18,
-    completedJobs: 27,
-  },
-  {
-    name: 'Dinesh Balan (Demo)',
-    email: 'dinesh.driver.demo@workmate.local',
-    phone: '+91 98407 77889',
-    category: 'drivers',
-    skills: ['Automatic & Manual Cars', 'Outstation Driving', 'Night Driving', 'Clean Traffic Record'],
-    experienceYears: 11,
-    bio: '[DEMO PROFILE] Professional chauffeur with valid commercial driving badge. Available for hourly personal trips, emergency driving, and city commutes.',
-    locality: 'Tambaram, Chennai',
-    hourlyRate: 250,
-    isAvailable: true,
-    isVerified: true,
-    averageRating: 4.9,
-    reviewCount: 50,
-    completedJobs: 70,
-  },
-  {
-    name: 'Murugan Selvam (Demo)',
-    email: 'murugan.helper.demo@workmate.local',
-    phone: '+91 98408 88990',
-    category: 'helpers',
-    skills: ['House Shifting', 'Heavy Luggage Loading', 'Warehouse Stacking', 'Event Setup Assistance'],
-    experienceYears: 4,
-    bio: '[DEMO PROFILE] Punctual, energetic helper for loading/unloading goods, household furniture shifting, stock stacking, and daily-wage physical support.',
-    locality: 'Koyambedu, Chennai',
-    hourlyRate: 200,
-    isAvailable: true,
-    isVerified: true,
-    averageRating: 4.7,
-    reviewCount: 22,
-    completedJobs: 34,
-  },
-  {
-    name: 'Perumal Swamy (Demo)',
-    email: 'perumal.mason.demo@workmate.local',
-    phone: '+91 98409 99001',
-    category: 'masons',
-    skills: ['Brick Laying', 'Wall Plastering', 'Tile Replacement', 'Waterproofing Civil Works'],
-    experienceYears: 15,
-    bio: '[DEMO PROFILE] Senior civil mason with extensive experience in wall repairs, compound wall additions, vitrified tile laying, and crack sealing.',
-    locality: 'Porur, Chennai',
-    hourlyRate: 550,
-    isAvailable: true,
-    isVerified: true,
-    averageRating: 4.8,
-    reviewCount: 29,
-    completedJobs: 41,
-  },
-  {
-    name: 'Ganesh Babu (Demo)',
-    email: 'ganesh.masonhelper.demo@workmate.local',
-    phone: '+91 98410 00112',
-    category: 'mason_helpers',
-    skills: ['Cement Mortar Mixing', 'Brick Carrying', 'Sand Sieving', 'Site Cleanup'],
-    experienceYears: 5,
-    bio: '[DEMO PROFILE] Dedicated civil mason helper specialized in precision mortar mixing, scaffold assistance, debris clearing, and masonry site preparation.',
-    locality: 'Porur, Chennai',
-    hourlyRate: 250,
-    isAvailable: true,
-    isVerified: true,
-    averageRating: 4.6,
-    reviewCount: 14,
-    completedJobs: 25,
+    reviewCount: 16,
+    completedJobs: 28,
   },
 ];
 
+export const seedCustomerRaju = async () => {
+  try {
+    const existing = await User.findOne({ email: 'raju@workmate.local' });
+    if (!existing) {
+      await User.create({
+        name: 'Raju',
+        email: 'raju@workmate.local',
+        password: 'Password123!',
+        phone: '+91 98401 11223',
+        role: 'customer',
+        customerType: 'individual',
+        locality: 'T. Nagar, Chennai',
+        address: '42, South Usman Road, T. Nagar',
+        city: 'Chennai',
+        pincode: '600017',
+        bio: 'Homeowner seeking skilled trade workers for repairs.',
+        isActive: true,
+      });
+      console.log('Created customer Raju');
+    }
+  } catch (error) {
+    console.error('Error seeding customer Raju:', error.message);
+  }
+};
+
 export const seedDemoWorkersIfEmpty = async () => {
   try {
+    await seedCustomerRaju();
+
     const existingCount = await WorkerProfile.countDocuments();
     if (existingCount > 0) {
       return;
     }
 
-    console.log('🌱 Seeding demo workers across all 10 categories (clearly tagged as demo profiles)...');
-
-    for (const workerData of DEMO_WORKERS) {
+    for (const workerData of INITIAL_WORKERS) {
       let user = await User.findOne({ email: workerData.email });
       if (!user) {
         user = await User.create({
           name: workerData.name,
           email: workerData.email,
-          password: 'DemoWorker@WorkMate2026!',
+          password: 'Password123!',
           phone: workerData.phone,
           role: 'worker',
+          locality: workerData.locality,
+          address: '15, Burkit Road, T. Nagar',
+          city: 'Chennai',
+          pincode: '600017',
+          bio: workerData.bio,
           isActive: true,
         });
       }
@@ -197,16 +83,16 @@ export const seedDemoWorkersIfEmpty = async () => {
         isAvailable: workerData.isAvailable,
         isVerified: workerData.isVerified,
         verifiedAt: new Date(),
-        verificationNotes: 'Pre-verified sample demo profile for capstone review',
+        verificationNotes: 'Verified Trade Certification & Background Checked',
         averageRating: workerData.averageRating,
         reviewCount: workerData.reviewCount,
         completedJobs: workerData.completedJobs,
-        isDemo: true,
+        isDemo: false,
       });
     }
 
-    console.log('✅ Demo workers seeded successfully for all 10 categories.');
+    console.log('Initial worker seeded.');
   } catch (error) {
-    console.error('Error seeding demo workers:', error.message);
+    console.error('Error seeding initial workers:', error.message);
   }
 };

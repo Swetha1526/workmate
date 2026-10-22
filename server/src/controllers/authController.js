@@ -2,18 +2,13 @@ import jwt from 'jsonwebtoken';
 import { User } from '../models/User.js';
 import { validateRegisterInput, validateLoginInput } from '../validators/authValidator.js';
 
-// Helper to generate signed JWT
 const generateToken = (userId, role) => {
   const secret = process.env.JWT_SECRET || 'workmate_fallback_secret_key';
   const expiresIn = process.env.JWT_EXPIRES_IN || '7d';
   return jwt.sign({ id: userId, role }, secret, { expiresIn });
 };
 
-/**
- * @desc    Register a new Customer or Worker
- * @route   POST /api/auth/register
- * @access  Public
- */
+// handle registration for customers or trade workers
 export const register = async (req, res) => {
   try {
     const { errors, isValid } = validateRegisterInput(req.body);
@@ -23,7 +18,6 @@ export const register = async (req, res) => {
 
     const { name, email, password, phone, role = 'customer', customerType = 'individual' } = req.body;
 
-    // Check duplicate email
     const existingUser = await User.findOne({ email: email.toLowerCase() });
     if (existingUser) {
       return res.status(400).json({
@@ -32,7 +26,7 @@ export const register = async (req, res) => {
       });
     }
 
-    // Explicitly restrict admin registration from public endpoint
+    // don't allow admin role from public register endpoint
     const safeRole = role === 'worker' ? 'worker' : 'customer';
 
     const user = await User.create({
@@ -57,6 +51,12 @@ export const register = async (req, res) => {
         phone: user.phone,
         role: user.role,
         customerType: user.customerType,
+        avatar: user.avatar || '',
+        locality: user.locality || '',
+        address: user.address || '',
+        city: user.city || '',
+        pincode: user.pincode || '',
+        bio: user.bio || '',
       },
     });
   } catch (error) {
@@ -69,11 +69,7 @@ export const register = async (req, res) => {
   }
 };
 
-/**
- * @desc    Login Customer or Worker
- * @route   POST /api/auth/login
- * @access  Public
- */
+// login for customers and workers
 export const login = async (req, res) => {
   try {
     const { errors, isValid } = validateLoginInput(req.body);
@@ -82,8 +78,6 @@ export const login = async (req, res) => {
     }
 
     const { email, password } = req.body;
-
-    // Retrieve user including password hash
     const user = await User.findOne({ email: email.toLowerCase() }).select('+password');
 
     if (!user) {
@@ -121,6 +115,12 @@ export const login = async (req, res) => {
         phone: user.phone,
         role: user.role,
         customerType: user.customerType,
+        avatar: user.avatar || '',
+        locality: user.locality || '',
+        address: user.address || '',
+        city: user.city || '',
+        pincode: user.pincode || '',
+        bio: user.bio || '',
       },
     });
   } catch (error) {
@@ -133,11 +133,7 @@ export const login = async (req, res) => {
   }
 };
 
-/**
- * @desc    Dedicated Admin Login endpoint
- * @route   POST /api/auth/admin/login
- * @access  Public (Enforces admin role check)
- */
+// admin portal login
 export const adminLogin = async (req, res) => {
   try {
     const { errors, isValid } = validateLoginInput(req.body);
@@ -193,11 +189,7 @@ export const adminLogin = async (req, res) => {
   }
 };
 
-/**
- * @desc    Get currently authenticated user profile
- * @route   GET /api/auth/me
- * @access  Private (Protected by JWT)
- */
+// get current user session details
 export const getMe = async (req, res) => {
   res.json({
     success: true,
@@ -208,15 +200,71 @@ export const getMe = async (req, res) => {
       phone: req.user.phone,
       role: req.user.role,
       customerType: req.user.customerType,
-      avatar: req.user.avatar,
+      avatar: req.user.avatar || '',
+      locality: req.user.locality || '',
+      address: req.user.address || '',
+      city: req.user.city || '',
+      pincode: req.user.pincode || '',
+      bio: req.user.bio || '',
       createdAt: req.user.createdAt,
     },
   });
 };
 
-/**
- * Auto-seed default administrator if none exists in DB
- */
+// update personal / customer profile details
+export const updateProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found.' });
+    }
+
+    const { name, phone, customerType, address, locality, city, pincode, bio, avatar } = req.body;
+
+    if (name && name.trim()) user.name = name.trim();
+    if (phone && phone.trim()) user.phone = phone.trim();
+    if (customerType && ['individual', 'business'].includes(customerType)) {
+      user.customerType = customerType;
+    }
+    if (address !== undefined) user.address = address.trim();
+    if (locality !== undefined) user.locality = locality.trim();
+    if (city !== undefined) user.city = city.trim();
+    if (pincode !== undefined) user.pincode = pincode.trim();
+    if (bio !== undefined) user.bio = bio.trim();
+    if (avatar !== undefined) user.avatar = avatar.trim();
+
+    await user.save();
+
+    res.json({
+      success: true,
+      message: 'Profile updated successfully.',
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        role: user.role,
+        customerType: user.customerType,
+        avatar: user.avatar || '',
+        locality: user.locality || '',
+        address: user.address || '',
+        city: user.city || '',
+        pincode: user.pincode || '',
+        bio: user.bio || '',
+        createdAt: user.createdAt,
+      },
+    });
+  } catch (error) {
+    console.error('Error updating user profile:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Server error while updating profile.',
+      error: error.message,
+    });
+  }
+};
+
+// create default admin if not created yet
 export const seedDefaultAdmin = async () => {
   try {
     const adminExists = await User.findOne({ role: 'admin' });
@@ -231,9 +279,9 @@ export const seedDefaultAdmin = async () => {
         phone: '+91 98765 43210',
         role: 'admin',
       });
-      console.log(`🛡️ Default Admin account provisioned: ${defaultAdminEmail}`);
+      console.log(`Default admin created: ${defaultAdminEmail}`);
     }
   } catch (err) {
-    console.error('Error auto-seeding admin:', err.message);
+    console.error('Error seeding admin:', err.message);
   }
 };

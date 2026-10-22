@@ -2,11 +2,7 @@ import { Conversation } from '../models/Conversation.js';
 import { Message } from '../models/Message.js';
 import { Booking } from '../models/Booking.js';
 
-/**
- * @desc    Get or initialize conversation for a specific booking
- * @route   GET /api/chat/booking/:bookingId
- * @access  Private (Participants or Admin)
- */
+// get or create conversation thread for a booking
 export const getBookingConversation = async (req, res) => {
   try {
     const { bookingId } = req.params;
@@ -51,11 +47,7 @@ export const getBookingConversation = async (req, res) => {
   }
 };
 
-/**
- * @desc    Get chat message history for a conversation
- * @route   GET /api/chat/:conversationId/messages
- * @access  Private (Participants only)
- */
+// load message history for conversation
 export const getMessages = async (req, res) => {
   try {
     const { conversationId } = req.params;
@@ -108,11 +100,7 @@ export const getMessages = async (req, res) => {
   }
 };
 
-/**
- * @desc    Send a message via REST API (fallback if socket disconnected)
- * @route   POST /api/chat/:conversationId/messages
- * @access  Private (Participants only)
- */
+// send message via http fallback
 export const sendMessageRest = async (req, res) => {
   try {
     const { conversationId } = req.params;

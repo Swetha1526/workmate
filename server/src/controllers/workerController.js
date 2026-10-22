@@ -1,11 +1,7 @@
 import { WorkerProfile, WORKER_CATEGORIES } from '../models/WorkerProfile.js';
 import { User } from '../models/User.js';
 
-/**
- * @desc    Create or update current worker's profile
- * @route   POST /api/workers/profile
- * @access  Private (Worker only)
- */
+// create or update profile for logged in worker
 export const createOrUpdateProfile = async (req, res) => {
   try {
     if (req.user.role !== 'worker') {
@@ -114,11 +110,7 @@ export const createOrUpdateProfile = async (req, res) => {
   }
 };
 
-/**
- * @desc    Get current worker's own profile
- * @route   GET /api/workers/me
- * @access  Private (Worker)
- */
+// get current worker profile
 export const getMyWorkerProfile = async (req, res) => {
   try {
     const profile = await WorkerProfile.findOne({ userId: req.user._id }).populate(
@@ -146,11 +138,7 @@ export const getMyWorkerProfile = async (req, res) => {
   }
 };
 
-/**
- * @desc    Get single worker profile by ID
- * @route   GET /api/workers/:id
- * @access  Public
- */
+// fetch worker profile by id
 export const getWorkerById = async (req, res) => {
   try {
     const profile = await WorkerProfile.findById(req.params.id).populate(
@@ -178,11 +166,7 @@ export const getWorkerById = async (req, res) => {
   }
 };
 
-/**
- * @desc    Discover workers with category, locality, rate & availability filters
- * @route   GET /api/workers
- * @access  Public
- */
+// search and filter workers
 export const getWorkers = async (req, res) => {
   try {
     const {
@@ -271,11 +255,7 @@ export const getWorkers = async (req, res) => {
   }
 };
 
-/**
- * @desc    Admin: Verify or reject a worker profile
- * @route   PATCH /api/workers/:id/verify
- * @access  Private (Admin only)
- */
+// admin toggle verification status
 export const verifyWorker = async (req, res) => {
   try {
     const { isVerified, verificationNotes } = req.body;

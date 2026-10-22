@@ -2,11 +2,7 @@ import { Booking, BOOKING_STATUSES } from '../models/Booking.js';
 import { WorkerProfile } from '../models/WorkerProfile.js';
 import { Conversation } from '../models/Conversation.js';
 
-/**
- * @desc    Create a new booking request
- * @route   POST /api/bookings
- * @access  Private (Customer only)
- */
+// create a new booking request
 export const createBooking = async (req, res) => {
   try {
     if (req.user.role !== 'customer') {
@@ -108,11 +104,7 @@ export const createBooking = async (req, res) => {
   }
 };
 
-/**
- * @desc    Get customer's bookings
- * @route   GET /api/bookings/my-bookings
- * @access  Private (Customer)
- */
+// get all bookings for logged-in customer
 export const getMyBookings = async (req, res) => {
   try {
     const bookings = await Booking.find({ customerId: req.user._id })
@@ -134,11 +126,7 @@ export const getMyBookings = async (req, res) => {
   }
 };
 
-/**
- * @desc    Get worker's assigned bookings
- * @route   GET /api/bookings/worker-bookings
- * @access  Private (Worker)
- */
+// get bookings assigned to logged-in worker
 export const getWorkerBookings = async (req, res) => {
   try {
     const bookings = await Booking.find({ workerUserId: req.user._id })
@@ -159,11 +147,7 @@ export const getWorkerBookings = async (req, res) => {
   }
 };
 
-/**
- * @desc    Get single booking by ID
- * @route   GET /api/bookings/:id
- * @access  Private (Participants or Admin)
- */
+// get single booking by id
 export const getBookingById = async (req, res) => {
   try {
     const booking = await Booking.findById(req.params.id)
@@ -196,11 +180,7 @@ export const getBookingById = async (req, res) => {
   }
 };
 
-/**
- * @desc    Update booking lifecycle status with strict transition validation
- * @route   PATCH /api/bookings/:id/status
- * @access  Private (Authorized participants)
- */
+// update booking status (accepted, in_progress, completed, cancelled)
 export const updateBookingStatus = async (req, res) => {
   try {
     const { status, note = '', cancellationReason = '' } = req.body;
@@ -323,11 +303,7 @@ export const updateBookingStatus = async (req, res) => {
   }
 };
 
-/**
- * @desc    Record direct customer-to-worker payment
- * @route   PATCH /api/bookings/:id/payment
- * @access  Private (Participants)
- */
+// mark direct cash / upi payment as settled
 export const recordDirectPayment = async (req, res) => {
   try {
     const booking = await Booking.findById(req.params.id);
