@@ -10,6 +10,7 @@ import { Discovery } from './pages/Discovery.jsx';
 import { Login } from './pages/Login.jsx';
 import { Register } from './pages/Register.jsx';
 import { CustomerBookings } from './pages/CustomerBookings.jsx';
+import { CustomerProfile } from './pages/CustomerProfile.jsx';
 import { WorkerBookings } from './pages/WorkerBookings.jsx';
 import { WorkerProfileEdit } from './pages/WorkerProfileEdit.jsx';
 import { AdminDashboard } from './pages/AdminDashboard.jsx';
@@ -38,6 +39,14 @@ function App() {
                   element={
                     <ProtectedRoute allowedRoles={['customer']}>
                       <CustomerBookings />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/customer-profile"
+                  element={
+                    <ProtectedRoute allowedRoles={['customer']}>
+                      <CustomerProfile />
                     </ProtectedRoute>
                   }
                 />
@@ -78,10 +87,10 @@ function App() {
             <footer className="footer">
               <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
                 <div>
-                  <strong>WorkMate</strong> — On-Demand Hourly Worker Hiring Marketplace
+                  <strong>WorkMate</strong> — Find trusted local trade workers on an hourly basis.
                 </div>
-                <div style={{ color: '#6b7280', fontSize: '12px' }}>
-                  Node.js • Express • MongoDB Atlas • React 19 • Vite • Socket.IO • JWT
+                <div style={{ color: '#6b7280', fontSize: '13px' }}>
+                  © {new Date().getFullYear()} WorkMate. All rights reserved.
                 </div>
               </div>
             </footer>

@@ -35,7 +35,7 @@ export const Register = () => {
         if (role === 'worker') {
           navigate('/worker-profile');
         } else {
-          navigate('/discovery');
+          navigate('/customer-profile');
         }
       }
     } catch (err) {

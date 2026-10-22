@@ -30,9 +30,14 @@ export const Navbar = () => {
         </Link>
 
         {isAuthenticated && isCustomer && (
-          <Link to="/my-bookings" className="nav-link">
-            My Bookings
-          </Link>
+          <>
+            <Link to="/my-bookings" className="nav-link">
+              My Bookings
+            </Link>
+            <Link to="/customer-profile" className="nav-link">
+              My Profile
+            </Link>
+          </>
         )}
 
         {isAuthenticated && isWorker && (
@@ -66,7 +71,8 @@ export const Navbar = () => {
       <div className="nav-actions">
         {isAuthenticated ? (
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div
+            <Link
+              to={isCustomer ? '/customer-profile' : isWorker ? '/worker-profile' : '/admin'}
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -77,7 +83,10 @@ export const Navbar = () => {
                 border: '1px solid #E7E8E2',
                 fontSize: '13px',
                 color: '#202923',
+                textDecoration: 'none',
+                transition: 'all 0.15s ease',
               }}
+              title="View profile"
             >
               <span
                 style={{
@@ -87,7 +96,7 @@ export const Navbar = () => {
                   background: isConnected ? '#247A52' : '#B45309',
                   boxShadow: isConnected ? '0 0 6px rgba(36, 122, 82, 0.4)' : 'none',
                 }}
-                title={isConnected ? 'Real-time Socket Connected' : 'Socket Reconnecting'}
+                title={isConnected ? 'Online' : 'Connecting...'}
               ></span>
               <span style={{ fontWeight: '600' }}>{user.name}</span>
               <span
@@ -114,7 +123,7 @@ export const Navbar = () => {
               >
                 {user.role}
               </span>
-            </div>
+            </Link>
 
             <button
               onClick={handleLogout}

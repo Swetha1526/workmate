@@ -50,7 +50,7 @@ export const SocketProvider = ({ children }) => {
   return (
     <SocketContext.Provider value={{ socket, isConnected, incomingNotification }}>
       {children}
-      {/* Light Toast Alert for real-time notifications */}
+      {/* in-app notification toast */}
       {incomingNotification && (
         <div
           className="animate-fade-in"

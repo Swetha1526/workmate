@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(() => localStorage.getItem('workmate_token') || null);
   const [loading, setLoading] = useState(true);
 
-  // Restore authenticated session on mount
+  // check if user is already logged in
   useEffect(() => {
     const initAuth = async () => {
       const storedToken = localStorage.getItem('workmate_token');
@@ -23,7 +23,6 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem('workmate_user', JSON.stringify(res.data.user));
           }
         } catch {
-          // Token expired or invalid
           logout();
         }
       }
@@ -73,16 +72,27 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('workmate_user');
   };
 
+  const updateUserProfile = async (formData) => {
+    const res = await api.put('/auth/profile', formData);
+    if (res.data.success && res.data.user) {
+      setUser(res.data.user);
+      localStorage.setItem('workmate_user', JSON.stringify(res.data.user));
+    }
+    return res.data;
+  };
+
   return (
     <AuthContext.Provider
       value={{
         user,
+        setUser,
         token,
         isAuthenticated: !!token && !!user,
         loading,
         login,
         adminLogin,
         register,
+        updateUserProfile,
         logout,
         isAdmin: user?.role === 'admin',
         isWorker: user?.role === 'worker',

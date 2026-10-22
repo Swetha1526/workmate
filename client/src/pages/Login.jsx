@@ -48,11 +48,11 @@ export const Login = () => {
     setError('');
     if (type === 'customer') {
       setIsAdminTab(false);
-      setEmail('flow.customer@workmate.local');
+      setEmail('raju@workmate.local');
       setPassword('Password123!');
     } else if (type === 'worker') {
       setIsAdminTab(false);
-      setEmail('flow.worker@workmate.local');
+      setEmail('plumber@workmate.local');
       setPassword('Password123!');
     } else if (type === 'admin') {
       setIsAdminTab(true);
@@ -94,8 +94,8 @@ export const Login = () => {
           </h2>
           <p style={{ fontSize: '14px', color: '#69736D' }}>
             {isAdminTab
-              ? 'Authorized administrative control panel'
-              : 'Access your bookings, profile, and direct chat'}
+              ? 'Sign in to access admin tools'
+              : 'Sign in to manage your bookings and messages'}
           </p>
         </div>
 
@@ -280,16 +280,16 @@ export const Login = () => {
         </form>
 
         {/* Quick Fill Test Credentials */}
-        <div style={{ marginTop: '28px', paddingTop: '20px', borderTop: '1px solid #E7E8E2' }}>
-          <div style={{ fontSize: '11px', fontWeight: '700', color: '#69736D', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '10px' }}>
-            ⚡ Quick-Fill Demo Accounts (One-Click Testing)
+        <div style={{ marginTop: '24px', paddingTop: '18px', borderTop: '1px solid #E7E8E2' }}>
+          <div style={{ fontSize: '12px', fontWeight: '600', color: '#69736D', marginBottom: '10px' }}>
+            Quick test accounts:
           </div>
           <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
             <button
               type="button"
               onClick={() => handleQuickFill('customer')}
               style={{
-                padding: '5px 12px',
+                padding: '6px 12px',
                 borderRadius: '6px',
                 background: '#E8F2EA',
                 color: '#247A52',
@@ -299,13 +299,13 @@ export const Login = () => {
                 cursor: 'pointer',
               }}
             >
-              Fill Customer
+              Raju (Customer)
             </button>
             <button
               type="button"
               onClick={() => handleQuickFill('worker')}
               style={{
-                padding: '5px 12px',
+                padding: '6px 12px',
                 borderRadius: '6px',
                 background: '#EFF6FF',
                 color: '#1D4ED8',
@@ -315,13 +315,13 @@ export const Login = () => {
                 cursor: 'pointer',
               }}
             >
-              Fill Worker
+              Ramesh (Plumber)
             </button>
             <button
               type="button"
               onClick={() => handleQuickFill('admin')}
               style={{
-                padding: '5px 12px',
+                padding: '6px 12px',
                 borderRadius: '6px',
                 background: '#EDE9FE',
                 color: '#6D28D9',
@@ -331,7 +331,7 @@ export const Login = () => {
                 cursor: 'pointer',
               }}
             >
-              Fill Admin
+              Admin
             </button>
           </div>
         </div>
