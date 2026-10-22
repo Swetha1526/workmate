@@ -59,13 +59,19 @@ export const createApp = () => {
     });
   });
 
-  // API Routes
+  // API Routes (supports both /api/* and fallback routes without /api prefix)
   app.use('/api/auth', authRoutes);
+  app.use('/auth', authRoutes);
   app.use('/api/workers', workerRoutes);
+  app.use('/workers', workerRoutes);
   app.use('/api/bookings', bookingRoutes);
+  app.use('/bookings', bookingRoutes);
   app.use('/api/chat', chatRoutes);
+  app.use('/chat', chatRoutes);
   app.use('/api/reviews', reviewRoutes);
+  app.use('/reviews', reviewRoutes);
   app.use('/api/admin', adminRoutes);
+  app.use('/admin', adminRoutes);
 
   // Global 404 handler for undefined API routes
   app.use('/api/*', (req, res) => {
