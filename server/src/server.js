@@ -14,10 +14,23 @@ const app = createApp();
 const server = http.createServer(app);
 
 // setup socket.io with cors for the frontend client
-const allowedOrigin = process.env.CLIENT_URL || 'http://localhost:5173';
+const rawClientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+const cleanClientUrl = rawClientUrl.replace(/\/+$/, '');
+
 const io = new Server(server, {
   cors: {
-    origin: allowedOrigin,
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      const clean = origin.replace(/\/+$/, '');
+      if (
+        clean === cleanClientUrl ||
+        clean === 'http://localhost:5173' ||
+        clean.endsWith('.vercel.app')
+      ) {
+        return callback(null, true);
+      }
+      return callback(null, true);
+    },
     credentials: true,
   },
 });

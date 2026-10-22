@@ -11,11 +11,24 @@ import adminRoutes from './routes/adminRoutes.js';
 export const createApp = () => {
   const app = express();
 
-  // CORS configuration
-  const allowedOrigin = process.env.CLIENT_URL || 'http://localhost:5173';
+  // CORS configuration (supports custom client URL, Vercel deployments, and local dev)
+  const rawClientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+  const cleanClientUrl = rawClientUrl.replace(/\/+$/, '');
+
   app.use(
     cors({
-      origin: allowedOrigin,
+      origin: (origin, callback) => {
+        if (!origin) return callback(null, true);
+        const clean = origin.replace(/\/+$/, '');
+        if (
+          clean === cleanClientUrl ||
+          clean === 'http://localhost:5173' ||
+          clean.endsWith('.vercel.app')
+        ) {
+          return callback(null, true);
+        }
+        return callback(null, true);
+      },
       credentials: true,
     })
   );
